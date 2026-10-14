@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lekker Claypot House - Menu</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main id="app">
+
+  <!-- 1. Intro / attract screen -->
+  <section id="intro" class="screen" aria-label="Welcome" tabindex="0">
+    <div class="intro-bg"></div>
+    <div class="intro-content">
+      <h1 class="intro-title">Lekker<span>Claypot House</span></h1>
+      <p class="intro-tagline">Curry &amp; Claypot</p>
+      <button id="startBtn" class="intro-cta" type="button">Tap to view menu</button>
+    </div>
+  </section>
+
+  <!-- 2. Interactive menu: one dish per screen -->
+  <section id="menu" class="screen" aria-label="Menu" hidden>
+    <header class="topbar">
+      <span class="brand">Lekker</span>
+      <nav id="cats" class="cats" aria-label="Categories"></nav>
+    </header>
+
+    <div id="book" class="book">
+      <article id="dish" class="dish" aria-live="polite">
+        <div class="dish-photo" id="dishPhoto"></div>
+        <div class="dish-info">
+          <p class="dish-cat" id="dishCat"></p>
+          <h2 class="dish-name" id="dishName"></h2>
+          <p class="dish-desc" id="dishDesc"></p>
+        </div>
+        <div id="dishPrice" class="dish-price"></div>
+      </article>
+    </div>
+
+    <footer class="controls">
+      <button id="prevBtn" class="arrow" type="button" aria-label="Previous dish">&#8592;</button>
+      <span id="count" class="count">01 / 01</span>
+      <button id="nextBtn" class="arrow" type="button" aria-label="Next dish">&#8594;</button>
+    </footer>
+  </section>
+
+  <!-- 3. Idle slideshow (any touch returns to menu) -->
+  <section id="idle" class="screen" aria-label="Featured dishes" hidden>
+    <div class="dish-photo" id="idlePhoto"></div>
+    <div class="idle-caption">
+      <h2 class="dish-name" id="idleName"></h2>
+      <p class="dish-desc" id="idleDesc"></p>
+      <p class="idle-hint">Touch the screen to browse the menu</p>
+    </div>
+  </section>
+
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>

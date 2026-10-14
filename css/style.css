@@ -1,0 +1,957 @@
+/* ===== Lekker Claypot House – tablet menu ===== */
+:root {
+    --curry: #c65a20;
+    --bg: #17120f;
+    --gold: #d89a45;
+    --cream: #f7ebdd;
+    --brown: #6e3d20;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: Arial, Helvetica, sans-serif;
+    --flip: 900ms; /* overridden from FLIP_MS in app.js */
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+html,
+body {
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--sans);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+}
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+}
+.screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+}
+[hidden] {
+    display: none !important;
+}
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* ---------- Intro ---------- */
+#intro {
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+.intro-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+}
+.intro-title {
+    font: 400 clamp(56px, 12vw, 140px) / 0.95 var(--serif);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: rise 2s ease both 0.4s;
+}
+.intro-title span {
+    display: block;
+    margin-top: 1.2vh;
+    font-size: 0.3em;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+}
+.intro-tagline {
+    font: italic 400 clamp(20px, 3vw, 34px) var(--serif);
+    color: var(--cream);
+    animation: rise 2s ease both 1.6s;
+}
+.intro-cta {
+    margin-top: 4vh;
+    padding: 20px 44px;
+    min-height: 64px;
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: clamp(14px, 1.8vw, 20px);
+    animation:
+        rise 2s ease both 2.6s,
+        pulse 3.2s ease-in-out infinite 4.6s;
+}
+
+/* ---------- Intro background ---------- */
+.intro-bg {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(180deg, rgba(23, 18, 15, 0.35), rgba(23, 18, 15, 0.78)),
+        url("../assets/images/home.jpg") center / cover no-repeat,
+        var(--bg);
+
+    animation: slowZoom 30s ease-out forwards;
+}
+
+/* ---------- Menu shell ---------- */
+#menu {
+    z-index: 1;
+    background: radial-gradient(ellipse at 50% 30%, #241a14, var(--bg) 70%);
+}
+.topbar {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 76px;
+    padding: 14px 24px;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(23, 18, 15, 0.9), transparent);
+    transition:
+        height 0.5s ease,
+        padding 0.5s ease,
+        opacity 0.4s ease;
+}
+.brand {
+    font: 400 22px var(--serif);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.cats {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.cats::-webkit-scrollbar {
+    display: none;
+}
+.cat {
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 999px;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(247, 235, 221, 0.65);
+    white-space: nowrap;
+    transition:
+        color 0.2s,
+        background 0.2s,
+        transform 0.15s;
+}
+.cat:active {
+    transform: scale(0.96);
+}
+.cat.active {
+    color: var(--bg);
+    background: var(--gold);
+}
+
+/* ---------- Dish (one per screen) ---------- */
+.book {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    margin: 0 24px;
+    perspective: 2200px;
+    transition: margin 0.5s ease;
+}
+.dish {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0f0b09;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    transition: border-radius 0.5s ease;
+}
+.dish-photo {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 40%, var(--brown), #1d140f 75%);
+}
+.dish-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: kenburns 20s ease-out forwards;
+}
+.dish-photo.noimg::after {
+    content: attr(data-initial);
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font: 400 22vh var(--serif);
+    color: rgba(216, 154, 69, 0.25);
+}
+.dish-photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 45%, rgba(23, 18, 15, 0.92) 100%);
+}
+.dish-info {
+    position: absolute;
+    z-index: 2;
+    left: 5%;
+    bottom: 6%;
+    max-width: 62%;
+}
+.dish-cat {
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+/* --- Dish information: title --- */
+.dish-name {
+    font: 400 clamp(26px, 3.6vw, 46px) / 1.1 var(--serif);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* --- Dish information: description --- */
+.dish-desc {
+    margin-top: 9px;
+    font-size: clamp(13px, 1.35vw, 17px);
+    line-height: 1.4;
+    color: rgba(247, 235, 221, 0.85);
+}
+
+
+
+/* --- Dish pricing: premium serving card --- */
+
+.dish-price {
+    position: absolute;
+    z-index: 2;
+    right: 4%;
+    bottom: 6%;
+
+    width: clamp(280px, 32%, 390px);
+    max-width: 46%;
+    max-height: 78%;
+    overflow-y: auto;
+
+    padding: 19px 21px;
+
+    color: var(--cream);
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(198, 90, 32, 0.18),
+            transparent 48%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(40, 27, 19, 0.97),
+            rgba(20, 15, 12, 0.97)
+        );
+
+    border: 1px solid rgba(216, 154, 69, 0.48);
+    border-radius: 15px;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+}
+
+/* --- Dish pricing: heading --- */
+
+.price-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 9px;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid rgba(216, 154, 69, 0.35);
+}
+
+.price-heading span:first-child {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--gold);
+}
+
+.price-heading span:last-child {
+    padding: 5px 8px;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    color: var(--gold);
+    background: rgba(216, 154, 69, 0.10);
+    border: 1px solid rgba(216, 154, 69, 0.24);
+    border-radius: 5px;
+}
+
+/* --- Dish pricing: serving rows --- */
+
+.price-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 35px;
+    padding: 5px 0;
+    gap: 10px;
+    font-size: clamp(12px, 1.1vw, 15px);
+    line-height: 1.35;
+
+    border-bottom: 1px solid rgba(247, 235, 221, 0.09);
+
+    font-family: var(--sans);
+    font-variant-numeric: tabular-nums;
+}
+
+.price-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.price-serving {
+    color: rgba(247, 235, 221, 0.82);
+}
+
+.price-amount {
+    flex-shrink: 0;
+
+    color: #f2bd70;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.price-single {
+    justify-content: flex-start;
+}
+
+/* --- Dish pricing: serving label --- */
+.price-serving {
+    min-width: 0;
+    color: rgba(247, 235, 221, 0.82);
+    overflow-wrap: anywhere;
+}
+
+/* --- Dish pricing: amount --- */
+.price-amount {
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: #f2bd70;
+    font-weight: 700;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Dish pricing: tablet layout --- */
+
+@media (max-width: 700px) {
+    .dish-price {
+        right: 3%;
+        bottom: 4%;
+
+        width: 43%;
+        min-width: 0;
+        max-width: 52%;
+        max-height: 66%;
+
+        padding: 15px 16px;
+        border-radius: 12px;
+    }
+
+    .price-heading {
+        margin-bottom: 7px;
+        padding-bottom: 9px;
+    }
+
+    .price-heading span:first-child {
+        font-size: 10px;
+        letter-spacing: 0.15em;
+    }
+
+    .price-heading span:last-child {
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+
+    .price-row {
+        min-height: 35px;
+        padding: 6px 0;
+        gap: 8px;
+        font-size: clamp(11px, 1.8vw, 15px);
+    }
+}
+
+
+/* ---------- Controls ---------- */
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 88px;
+    padding: 12px 24px;
+    overflow: hidden;
+    transition:
+        height 0.5s ease,
+        padding 0.5s ease,
+        opacity 0.4s ease;
+}
+.arrow {
+    width: 72px;
+    height: 64px;
+    border: 1px solid rgba(216, 154, 69, 0.5);
+    border-radius: 999px;
+    font-size: 30px;
+    color: var(--gold);
+    transition:
+        transform 0.15s,
+        background 0.2s,
+        opacity 0.2s;
+}
+.arrow:active {
+    transform: scale(0.94);
+    background: rgba(216, 154, 69, 0.18);
+}
+.count {
+    font: 400 26px var(--serif);
+    letter-spacing: 0.2em;
+    color: var(--cream);
+}
+
+/* --- Navigation: disabled arrow buttons --- */
+
+.arrow:disabled {
+    color: rgba(247, 235, 221, 0.25);
+    border-color: rgba(247, 235, 221, 0.12);
+    background: rgba(247, 235, 221, 0.04);
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.arrow:disabled:active {
+    transform: none;
+    background: rgba(247, 235, 221, 0.04);
+}
+
+/* ---------- Idle slideshow ---------- */
+#idle {
+    z-index: 10;
+    background: var(--bg);
+    transition: opacity 1.2s ease;
+}
+#idle .dish-photo img {
+    animation-duration: 8s;
+}
+.idle-caption {
+    position: absolute;
+    z-index: 2;
+    left: 6%;
+    bottom: 8%;
+    max-width: 70%;
+}
+.idle-hint {
+    margin-top: 28px;
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    animation: pulse 3.2s ease-in-out infinite;
+}
+#idle.swap .dish-photo,
+#idle.swap .idle-caption {
+    opacity: 0;
+}
+#idle .dish-photo,
+#idle .idle-caption {
+    transition: opacity 1.2s ease;
+}
+
+/* --- Category buttons: smooth interaction --- */
+
+.cat {
+    position: relative;
+    transform-origin: center;
+    transition:
+        color 0.35s ease,
+        background-color 0.35s ease,
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.cat:active {
+    transform: scale(0.94);
+}
+
+/* --- Category buttons: active state --- */
+
+.cat.active {
+    color: var(--bg);
+    background: var(--gold);
+    box-shadow: 0 4px 18px rgba(216, 154, 69, 0.18);
+    animation: categoryButtonIn 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* --- Category buttons: entrance animation --- */
+
+@keyframes categoryButtonIn {
+    0% {
+        opacity: 0.65;
+        transform: scale(0.92) translateY(4px);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1.035) translateY(-1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* --- Category buttons: keyboard focus --- */
+
+.cat:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 3px;
+}
+
+/* --- Category transition: dish exit --- */
+
+.dish.category-exit {
+    animation: categoryDishOut 180ms ease-in both;
+    pointer-events: none;
+}
+
+/* --- Category transition: dish entrance --- */
+
+.dish.category-enter {
+    animation: categoryDishIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* --- Category transition: exit animation --- */
+
+@keyframes categoryDishOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+        filter: brightness(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-18px);
+        filter: brightness(0.8);
+    }
+}
+
+/* --- Category transition: entrance animation --- */
+
+@keyframes categoryDishIn {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+        filter: brightness(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: brightness(1);
+    }
+}
+
+/* --- Page flip: two-sided leaf container --- */
+
+.leaf {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: visible;
+    pointer-events: none;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    box-shadow: none;
+}
+
+/* --- Page flip: front and back faces --- */
+
+.leaf-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #0f0b09;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.leaf-front {
+    transform: rotateY(0deg) translateZ(0.1px);
+}
+
+.leaf-back {
+    transform: rotateY(180deg) translateZ(0.1px);
+}
+
+/* --- Page flip: forward direction --- */
+
+.leaf.next {
+    transform-origin: left center;
+}
+
+/* --- Page flip: backward direction --- */
+
+.leaf.prev {
+    transform-origin: right center;
+}
+
+/* --- Page flip: smooth forward and backward timing --- */
+.leaf.curling.next {
+    animation: lekkerFlipNext var(--flip, 650ms) cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.leaf.curling.prev {
+    animation: lekkerFlipPrev var(--flip, 650ms) cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* --- Page flip: smooth forward turn --- */
+
+@keyframes lekkerFlipNext {
+    0% {
+        transform: translate3d(0, 0, 0) rotateY(0deg);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translate3d(0, -5px, 0) rotateY(-35deg);
+        opacity: 1;
+    }
+
+    65% {
+        transform: translate3d(0, -7px, 0) rotateY(-125deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotateY(-180deg);
+        opacity: 0;
+    }
+}
+
+/* --- Page flip: smooth backward turn --- */
+
+@keyframes lekkerFlipPrev {
+    0% {
+        transform: translate3d(0, 0, 0) rotateY(0deg);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translate3d(0, -5px, 0) rotateY(35deg);
+        opacity: 1;
+    }
+
+    65% {
+        transform: translate3d(0, -7px, 0) rotateY(125deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+/* --- Page flip: curled paper corner --- */
+
+.leaf::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: clamp(75px, 15%, 170px);
+    aspect-ratio: 1;
+    z-index: 10;
+    pointer-events: none;
+    opacity: var(--curl-opacity, 0);
+    transition: opacity 0.12s ease;
+    background: linear-gradient(
+        135deg,
+        transparent 43%,
+        rgba(0, 0, 0, 0.16) 46%,
+        rgba(255, 248, 231, 0.8) 56%,
+        rgba(220, 195, 160, 0.95) 68%,
+        rgba(70, 43, 26, 0.55) 100%
+    );
+    filter: none;
+}
+
+/* --- Page flip: forward corner curl --- */
+
+.leaf.next::after {
+    right: 0;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    transform-origin: bottom right;
+}
+
+/* --- Page flip: backward corner curl --- */
+
+.leaf.prev::after {
+    left: 0;
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    transform-origin: bottom left;
+}
+
+/* --- Page flip: corner curl during button animation --- */
+
+.leaf.curling {
+    --curl-opacity: 0.85;
+}
+
+/* ---------- Tap photo: hide / show interface ---------- */
+.ui-hidden .topbar,
+.ui-hidden .controls {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+.ui-hidden .book {
+    margin: 0;
+}
+.ui-hidden .dish {
+    border-radius: 0;
+}
+
+/* ---------- Intro -> menu transition ---------- */
+#menu.enter {
+    animation: menuIn 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+#menu.enter .topbar {
+    animation: dropIn 0.9s ease 0.45s both;
+}
+#menu.enter .controls {
+    animation: riseIn 0.9s ease 0.6s both;
+}
+#intro.leaving {
+    pointer-events: none;
+}
+#intro.leaving .intro-bg {
+    opacity: 0;
+    transition: opacity 1s ease 0.2s;
+}
+#intro.leaving .intro-content {
+    animation: introOut 0.8s ease-in forwards;
+}
+#intro.leaving .intro-cta {
+    animation: ctaPop 0.6s ease forwards;
+}
+
+/* ---------- Animations (kept slow and subtle) ---------- */
+@keyframes slowZoom {
+    to {
+        transform: scale(1.12);
+    }
+}
+@keyframes kenburns {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.04);
+    }
+}
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes reveal {
+    from {
+        filter: brightness(0.4);
+        transform: scale(0.96);
+    }
+    to {
+        filter: none;
+        transform: none;
+    }
+}
+@keyframes flipNext {
+    to {
+        transform: rotateY(-105deg);
+    }
+}
+@keyframes flipPrev {
+    to {
+        transform: rotateY(105deg);
+    }
+}
+@keyframes shade {
+    to {
+        opacity: 1;
+    }
+}
+@keyframes menuIn {
+    from {
+        opacity: 0;
+        transform: scale(1.06);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes dropIn {
+    from {
+        opacity: 0;
+        transform: translateY(-24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes introOut {
+    to {
+        opacity: 0;
+        transform: scale(1.15);
+        filter: blur(6px);
+    }
+}
+@keyframes ctaPop {
+    0% {
+        transform: scale(1);
+    }
+    35% {
+        transform: scale(1.12);
+        box-shadow: 0 0 40px rgba(216, 154, 69, 0.7);
+        background: rgba(216, 154, 69, 0.2);
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 700px) {
+    /* --- Tablet layout: dish information --- */
+    .dish-name {
+        font-size: clamp(23px, 4vw, 34px);
+    }
+
+    .dish-desc {
+        margin-top: 7px;
+        font-size: clamp(12px, 1.8vw, 15px);
+        line-height: 1.35;
+    }
+
+    /* --- Tablet layout: price list --- */
+    .price-row {
+        font-size: clamp(11px, 1.5vw, 13px);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* --- Page flip: prevent blur artifacts --- */
+.leaf .dish-price {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* --- FIX: allow page flip when touching the price box --- */
+/* Price box only scrolls vertically; horizontal drag goes to the page flip. */
+.dish,
+.dish-price {
+    touch-action: pan-y;
+}
+.dish-price {
+    overscroll-behavior: contain;
+}
