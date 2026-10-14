@@ -197,14 +197,53 @@ button {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 40%, var(--brown), #1d140f 75%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #17120f;
 }
-.dish-photo img {
+
+.dish-photo-main {
+    position: relative;
+    z-index: 2;
+
+    display: block;
+
+    width: auto;
+    max-width: 88%;
+    height: 98%;
+
+    object-fit: contain;
+    object-position: center center;
+
+    animation: none;
+
+    pointer-events: none;
+}
+
+.dish-photo-bg {
+    position: absolute;
+    inset: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
-    animation: kenburns 20s ease-out forwards;
+    object-position: center;
+
+    filter: blur(10px)
+            brightness(0.50)
+            saturate(1.3);
+
+    transform: scale(1.05);
+
+    opacity: 1;
+
+    z-index: 0;
 }
+
 .dish-photo.noimg::after {
     content: attr(data-initial);
     position: absolute;
@@ -218,12 +257,27 @@ button {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, transparent 45%, rgba(23, 18, 15, 0.92) 100%);
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10,7,5,.38) 0%,
+            rgba(10,7,5,.08) 30%,
+            rgba(10,7,5,.08) 70%,
+            rgba(10,7,5,.38) 100%
+        ),
+        linear-gradient(
+            180deg,
+            transparent 42%,
+            rgba(23,18,15,.90) 100%
+        );
 }
 .dish-info {
     position: absolute;
-    z-index: 2;
+    z-index: 4;
     left: 5%;
     bottom: 6%;
     max-width: 62%;
@@ -250,13 +304,10 @@ button {
     color: rgba(247, 235, 221, 0.85);
 }
 
-
-
 /* --- Dish pricing: premium serving card --- */
-
 .dish-price {
     position: absolute;
-    z-index: 2;
+    z-index: 4;
     right: 4%;
     bottom: 6%;
 
@@ -296,7 +347,6 @@ button {
 }
 
 /* --- Dish pricing: heading --- */
-
 .price-heading {
     display: flex;
     align-items: center;
@@ -330,7 +380,6 @@ button {
 }
 
 /* --- Dish pricing: serving rows --- */
-
 .price-rows {
     display: flex;
     flex-direction: column;
@@ -394,7 +443,6 @@ button {
 }
 
 /* --- Dish pricing: tablet layout --- */
-
 @media (max-width: 700px) {
     .dish-price {
         right: 3%;
@@ -432,7 +480,6 @@ button {
     }
 }
 
-
 /* ---------- Controls ---------- */
 .controls {
     display: flex;
@@ -469,7 +516,6 @@ button {
 }
 
 /* --- Navigation: disabled arrow buttons --- */
-
 .arrow:disabled {
     color: rgba(247, 235, 221, 0.25);
     border-color: rgba(247, 235, 221, 0.12);
@@ -491,7 +537,7 @@ button {
     transition: opacity 1.2s ease;
 }
 #idle .dish-photo img {
-    animation-duration: 8s;
+    animation: none;
 }
 .idle-caption {
     position: absolute;
@@ -518,7 +564,6 @@ button {
 }
 
 /* --- Category buttons: smooth interaction --- */
-
 .cat {
     position: relative;
     transform-origin: center;
@@ -534,7 +579,6 @@ button {
 }
 
 /* --- Category buttons: active state --- */
-
 .cat.active {
     color: var(--bg);
     background: var(--gold);
@@ -543,7 +587,6 @@ button {
 }
 
 /* --- Category buttons: entrance animation --- */
-
 @keyframes categoryButtonIn {
     0% {
         opacity: 0.65;
@@ -562,27 +605,23 @@ button {
 }
 
 /* --- Category buttons: keyboard focus --- */
-
 .cat:focus-visible {
     outline: 2px solid var(--cream);
     outline-offset: 3px;
 }
 
 /* --- Category transition: dish exit --- */
-
 .dish.category-exit {
     animation: categoryDishOut 180ms ease-in both;
     pointer-events: none;
 }
 
 /* --- Category transition: dish entrance --- */
-
 .dish.category-enter {
     animation: categoryDishIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 /* --- Category transition: exit animation --- */
-
 @keyframes categoryDishOut {
     from {
         opacity: 1;
@@ -598,7 +637,6 @@ button {
 }
 
 /* --- Category transition: entrance animation --- */
-
 @keyframes categoryDishIn {
     from {
         opacity: 0;
@@ -614,7 +652,6 @@ button {
 }
 
 /* --- Page flip: two-sided leaf container --- */
-
 .leaf {
     position: absolute;
     inset: 0;
@@ -630,7 +667,6 @@ button {
 }
 
 /* --- Page flip: front and back faces --- */
-
 .leaf-face {
     position: absolute;
     inset: 0;
@@ -653,13 +689,11 @@ button {
 }
 
 /* --- Page flip: forward direction --- */
-
 .leaf.next {
     transform-origin: left center;
 }
 
 /* --- Page flip: backward direction --- */
-
 .leaf.prev {
     transform-origin: right center;
 }
@@ -674,7 +708,6 @@ button {
 }
 
 /* --- Page flip: smooth forward turn --- */
-
 @keyframes lekkerFlipNext {
     0% {
         transform: translate3d(0, 0, 0) rotateY(0deg);
@@ -698,7 +731,6 @@ button {
 }
 
 /* --- Page flip: smooth backward turn --- */
-
 @keyframes lekkerFlipPrev {
     0% {
         transform: translate3d(0, 0, 0) rotateY(0deg);
@@ -722,7 +754,6 @@ button {
 }
 
 /* --- Page flip: curled paper corner --- */
-
 .leaf::after {
     content: "";
     position: absolute;
@@ -745,7 +776,6 @@ button {
 }
 
 /* --- Page flip: forward corner curl --- */
-
 .leaf.next::after {
     right: 0;
     clip-path: polygon(100% 0, 100% 100%, 0 100%);
@@ -753,7 +783,6 @@ button {
 }
 
 /* --- Page flip: backward corner curl --- */
-
 .leaf.prev::after {
     left: 0;
     clip-path: polygon(0 0, 100% 100%, 0 100%);
@@ -761,7 +790,6 @@ button {
 }
 
 /* --- Page flip: corner curl during button animation --- */
-
 .leaf.curling {
     --curl-opacity: 0.85;
 }
@@ -954,4 +982,446 @@ button {
 }
 .dish-price {
     overscroll-behavior: contain;
+}
+
+/* ======================================================================
+   RESPONSIVE LAYER  (POS / kiosk screens, tablets, phones)
+   Added at the end - the original rules above are unchanged.
+   Landscape : text left, price card right (original design, scaled)
+   Portrait  : text and price card stacked at the bottom
+   Phone     : photo stays in its own area on top, details underneath
+   ====================================================================== */
+
+/* ---------- 0. Viewport height fallback (older POS browsers without dvh) ---------- */
+html,
+body,
+#app {
+    height: 100vh;
+}
+@supports (height: 100dvh) {
+    html,
+    body,
+    #app {
+        height: 100dvh;
+    }
+}
+
+/* ---------- 1. Fluid sizing (default = landscape POS / desktop / tablet) ---------- */
+:root {
+    --edge: clamp(12px, 2.4vw, 40px);
+    --topbar-h: clamp(56px, 9vh, 104px);
+    --controls-h: clamp(56px, 11vh, 120px);
+    --price-w: clamp(220px, 27vw, 520px);
+}
+
+/* Header */
+.topbar {
+    height: var(--topbar-h);
+    gap: clamp(10px, 1.4vw, 28px);
+    padding: 8px var(--edge);
+}
+.brand {
+    flex-shrink: 0;
+    font-size: clamp(18px, 1.8vw, 32px);
+}
+.cats {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: clamp(2px, 0.4vw, 8px);
+    -webkit-overflow-scrolling: touch;
+}
+.cats > :first-child {
+    margin-left: auto;
+}
+.cats > :last-child {
+    margin-right: auto;
+}
+.cat {
+    flex-shrink: 0;
+    min-height: clamp(38px, 6vh, 64px);
+    padding: 0 clamp(8px, 1.2vw, 24px);
+    font-size: clamp(10px, 1.1vw, 19px);
+    letter-spacing: 0.1em;
+}
+
+/* Menu area */
+.book {
+    margin: 0 var(--edge);
+}
+.dish {
+    border-radius: clamp(12px, 1.5vw, 24px);
+}
+
+/* Dish information (never runs under the price card) */
+.dish-info {
+    max-width: min(62%, calc(91% - var(--price-w) - 28px));
+}
+.dish-cat {
+    margin-bottom: clamp(6px, 1vh, 14px);
+    font-size: clamp(11px, 1vw, 19px);
+}
+.dish-name {
+    font-size: clamp(24px, 3.3vw, 64px);
+}
+.dish-desc {
+    margin-top: clamp(6px, 1vh, 14px);
+    font-size: clamp(12px, 1.3vw, 24px);
+}
+
+/* Price card */
+.dish-price {
+    width: var(--price-w);
+    max-width: none;
+    max-height: 82%;
+    padding: clamp(12px, 1.4vw, 28px);
+    border-radius: clamp(10px, 1.1vw, 20px);
+}
+.price-heading {
+    margin-bottom: clamp(6px, 0.8vh, 12px);
+    padding-bottom: clamp(7px, 1vh, 14px);
+}
+.price-heading span:first-child {
+    font-size: clamp(10px, 0.95vw, 17px);
+}
+.price-heading span:last-child {
+    font-size: clamp(8px, 0.8vw, 14px);
+}
+.price-row {
+    min-height: clamp(26px, 4.3vh, 52px);
+    padding: clamp(3px, 0.5vh, 7px) 0;
+    font-size: clamp(11px, 1.1vw, 20px);
+}
+
+/* Controls */
+.controls {
+    height: var(--controls-h);
+    padding: 8px var(--edge);
+}
+.arrow {
+    height: calc(var(--controls-h) - 20px);
+    width: calc((var(--controls-h) - 20px) * 1.2);
+    font-size: clamp(20px, 3vh, 40px);
+}
+.count {
+    font-size: clamp(18px, 3.2vh, 42px);
+}
+
+/* Idle slideshow + intro */
+.idle-hint {
+    font-size: clamp(12px, 1.2vw, 22px);
+}
+
+/* ---------- 2. Short landscape screens (1024x600, phones on their side) ---------- */
+@media (orientation: landscape) and (max-height: 560px) {
+    :root {
+        --topbar-h: 48px;
+        --controls-h: 52px;
+    }
+    .cat {
+        min-height: 34px;
+    }
+    .arrow {
+        height: 38px;
+        width: 54px;
+    }
+    .dish-price {
+        max-height: 92%;
+        padding: 8px 12px;
+    }
+    .price-heading {
+        margin-bottom: 4px;
+        padding-bottom: 6px;
+    }
+    .price-row {
+        min-height: 23px;
+        padding: 2px 0;
+        font-size: 11px;
+    }
+    .dish-info {
+        bottom: 5%;
+    }
+    .dish-price {
+        bottom: 5%;
+    }
+}
+
+/* ---------- 3. Portrait (tablet / POS / phone): text and price stacked ---------- */
+@media (orientation: portrait) {
+    :root {
+        --edge: clamp(10px, 3vw, 32px);
+        --topbar-h: 104px;
+        --controls-h: clamp(60px, 7.5vh, 104px);
+    }
+
+    /* Header: brand on the first row, all categories on the second row */
+    .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px var(--edge);
+    }
+    .brand {
+        text-align: center;
+        font-size: clamp(16px, 2.4vw, 30px);
+        letter-spacing: 0.3em;
+    }
+    .cats {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .cat {
+        min-height: clamp(38px, 3.6vh, 50px);
+        padding: 0 0.7em;
+        font-size: clamp(11px, 1.55vw, 26px);
+        letter-spacing: 0.04em;
+    }
+
+    /* Stack: info above price, both at the bottom of the photo */
+    .dish:not(.leaf),
+    .leaf-face {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: clamp(10px, 1.6vh, 20px);
+        padding: clamp(14px, 4vw, 36px);
+    }
+    .dish-info,
+    .dish-price {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        flex: 0 1 auto;
+        min-height: 0;
+    }
+    .dish-info {
+        flex-shrink: 0;
+        width: 100%;
+        max-width: none;
+    }
+    .dish-price {
+        width: 100%;
+        max-width: none;
+        max-height: 100%;
+    }
+    .dish-photo::before {
+        background: linear-gradient(
+            180deg,
+            transparent 18%,
+            rgba(23, 18, 15, 0.55) 52%,
+            rgba(23, 18, 15, 0.95) 100%
+        );
+    }
+
+    /* Type */
+    .dish-cat {
+        font-size: clamp(10px, 1.8vw, 18px);
+        letter-spacing: 0.22em;
+    }
+    .dish-name {
+        font-size: clamp(22px, 5vw, 54px);
+    }
+    .dish-desc {
+        font-size: clamp(12px, 2.4vw, 22px);
+        line-height: 1.35;
+    }
+    .price-heading span:first-child {
+        font-size: clamp(10px, 1.8vw, 16px);
+    }
+    .price-heading span:last-child {
+        font-size: clamp(8px, 1.5vw, 13px);
+    }
+    .price-row {
+        min-height: clamp(28px, 3.4vh, 46px);
+        font-size: clamp(13px, 2.4vw, 22px);
+    }
+
+    /* Controls */
+    .arrow {
+        height: calc(var(--controls-h) - 16px);
+        width: calc((var(--controls-h) - 16px) * 1.3);
+        font-size: clamp(20px, 3vh, 36px);
+    }
+    .count {
+        font-size: clamp(18px, 2.8vh, 34px);
+    }
+
+    /* Idle slideshow */
+    .idle-caption {
+        left: 6%;
+        right: 6%;
+        max-width: none;
+    }
+}
+
+/* ---------- 4. Narrow portrait (phones): categories scroll sideways ---------- */
+@media (orientation: portrait) and (max-width: 600px) {
+    :root {
+        --topbar-h: 92px;
+    }
+    .brand {
+        font-size: 16px;
+    }
+    .cat {
+        min-height: 40px;
+        padding: 0 14px;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+    }
+}
+
+/* ======================================================================
+   5. PHONE (portrait, 600px wide or less)
+   The photo stays in its own area at the top (about 55% of the card).
+   Dish name, description and price list sit BELOW the photo and never
+   cover it. Tablet / POS / desktop are NOT affected.
+   ====================================================================== */
+@media (orientation: portrait) and (max-width: 600px) {
+
+    :root {
+        --edge: 12px;
+        --controls-h: 68px;
+    }
+
+    /* Card = photo block (top) + details block (bottom), no overlay */
+    .dish:not(.leaf),
+    .leaf-face {
+        justify-content: flex-start;
+        gap: 0;
+        padding: 0;
+        background: var(--bg);
+    }
+
+    /* Photo area: fixed share of the card, same size on every dish.
+       It only gives up space (down to 34%) when a long price list needs it. */
+    .dish-photo {
+        position: relative;
+        inset: auto;
+        flex: 0 30 55%;   /* shrink factor 30: the photo gives up space first */
+        min-height: 34%;
+        width: 100%;
+    }
+    .dish-photo::before {
+        background: linear-gradient(
+            180deg,
+            transparent 70%,
+            rgba(23, 18, 15, 0.85) 100%
+        );
+    }
+    .dish-photo.noimg::after {
+        font-size: 14vh;
+    }
+
+    /* Title + description sit right under the photo */
+    .dish-info {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-top: 10px;
+        padding: 0 16px;
+    }
+    .dish-cat {
+        margin-bottom: 4px;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+    }
+    .dish-name {
+        font-size: clamp(21px, 5.6vw, 26px);
+        line-height: 1.18;
+    }
+    .dish-desc {
+        margin-top: 6px;
+        font-size: clamp(12.5px, 3.4vw, 14.5px);
+        line-height: 1.4;
+    }
+
+    /* Full-width price card under the text; scrolls inside if the list is long */
+    .dish-price {
+        flex: 0 1 auto;
+        width: auto;
+        max-width: none;
+        max-height: none;
+        margin: 12px 12px 12px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        overflow-y: auto;
+    }
+    .price-heading {
+        margin-bottom: 4px;
+        padding-bottom: 8px;
+    }
+    .price-heading span:first-child {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+    }
+    .price-heading span:last-child {
+        padding: 3px 7px;
+        font-size: 9px;
+    }
+    .price-row {
+        min-height: 31px;
+        padding: 4px 0;
+        font-size: clamp(12.5px, 3.5vw, 14.5px);
+    }
+
+    /* Bottom controls - keep clear of the iPhone home indicator */
+    .controls {
+        height: calc(var(--controls-h) + env(safe-area-inset-bottom, 0px));
+        padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+    .arrow {
+        width: 60px;
+        height: 48px;
+        font-size: 22px;
+    }
+    .count {
+        font-size: 19px;
+    }
+}
+
+/* Narrow phones (360px class): tighter rows so long price lists still fit */
+@media (orientation: portrait) and (max-width: 380px) {
+    .dish-photo {
+        flex-basis: 50%;
+        min-height: 32%;
+    }
+    .dish-info {
+        margin-top: 8px;
+    }
+    .dish-name {
+        font-size: 20px;
+    }
+    .dish-desc {
+        font-size: 12px;
+    }
+    .dish-price {
+        margin: 8px 10px 10px;
+        padding: 10px 12px;
+    }
+    .price-heading {
+        padding-bottom: 6px;
+    }
+    .price-row {
+        min-height: 27px;
+        padding: 3px 0;
+        font-size: 12.5px;
+    }
+}
+
+/* Very short phones (iPhone SE class) */
+@media (orientation: portrait) and (max-width: 600px) and (max-height: 700px) {
+    .dish-photo {
+        flex-basis: 42%;
+        min-height: 28%;
+    }
+    .dish-name {
+        font-size: 19px;
+    }
+    .dish-desc {
+        font-size: 12px;
+    }
+    .price-row {
+        min-height: 26px;
+        font-size: 12px;
+    }
 }

@@ -166,25 +166,53 @@ function preloadImages() {
 }
 /* ===== Rendering ===== */
 function setPhoto(container, item) {
-  // FIX: same photo already shown – do not recreate the <img> (prevents flicker)
-  const existing = container.querySelector("img");
-  if (existing && existing.dataset.src === item.image) {
-    existing.alt = item.name;
+  // Check the sharp foreground image to avoid recreating both images.
+  const existingMain = container.querySelector(".dish-photo-main");
+
+  if (
+    existingMain &&
+    existingMain.dataset.src === item.image
+  ) {
+    existingMain.alt = item.name;
+
+    const existingBg = container.querySelector(".dish-photo-bg");
+
+    if (existingBg) {
+      existingBg.alt = "";
+    }
+
     container.dataset.initial = item.name.charAt(0);
+    container.classList.remove("noimg");
     return;
   }
+
   container.classList.remove("noimg");
   container.dataset.initial = item.name.charAt(0);
-  const img = new Image();
-  img.alt = item.name;
-  img.decoding = "async";
-  img.dataset.src = item.image;
-  img.onerror = () => {
-    img.remove();
+
+  // Blurred background copy.
+  const bgImg = new Image();
+  bgImg.className = "dish-photo-bg";
+  bgImg.alt = "";
+  bgImg.setAttribute("aria-hidden", "true");
+  bgImg.decoding = "async";
+  bgImg.dataset.src = item.image;
+
+  // Sharp foreground copy.
+  const mainImg = new Image();
+  mainImg.className = "dish-photo-main";
+  mainImg.alt = item.name;
+  mainImg.decoding = "async";
+  mainImg.dataset.src = item.image;
+
+  mainImg.onerror = () => {
+    container.replaceChildren();
     container.classList.add("noimg");
   };
-  img.src = item.image;
-  container.replaceChildren(img);
+
+  bgImg.src = item.image;
+  mainImg.src = item.image;
+
+  container.replaceChildren(bgImg, mainImg);
 }
 function renderCategories() {
   el.cats.replaceChildren(
@@ -330,7 +358,7 @@ function makeLeaf(dir, baseIndex = index) {
     }
     leaf.appendChild(back);
     // Stop the front photo animation while the page rotates.
-    const frontImg = front.querySelector(".dish-photo img");
+    const frontImg = front.querySelector(".dish-photo-main");
     if (frontImg) {
         frontImg.style.animation = "none";
         frontImg.style.willChange = "transform";
