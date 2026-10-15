@@ -80,11 +80,10 @@ menuItems.forEach((item) => {
 });
 /* ===== Settings ===== */
 const IDLE_MS = 30000;
-const SLIDE_MS = 6000;
+const SLIDE_MS = 8000;
 const FADE_MS = 1200;
 const SWIPE_MIN = 25;
-const FLIP_MS = 650;
-const RESET_MS = 120000;
+const FLIP_MS = 820;
 const WAKE_GUARD_MS = 500;
 /* FIX: easier hold-and-drag flip */
 const DRAG_START_PX = 6;      // movement before the page starts to lift
@@ -93,9 +92,9 @@ const COMMIT_PX = 40;         // small drag distance that is enough to turn the 
 const COMMIT_PROGRESS = 0.12; // or 12% of the turn
 const FLICK_SPEED = 0.3;      // px per ms – quick flick always turns the page
 /* FIX: smooth fade-out of the turned page */
-const DRAG_FINISH_MS = 420;   // time for the page to finish turning after release
+const DRAG_FINISH_MS = 540;   // time for the page to finish turning after release
 const LEAF_FADE_MS = 300;     // fade-out duration of the turned page
-const LEAF_FADE_START = 0.55; // drag progress where the page starts to fade
+const LEAF_FADE_START = 0.3;  // fade gradually while the turning page is still visible
 document.documentElement.style.setProperty("--flip", `${FLIP_MS}ms`);
 /* ===== State ===== */
 let currentCategory = categories[0].id;
@@ -124,7 +123,6 @@ let lastMoveTime = 0;
 let flickVelocity = 0;
 let dragTargetIndex = 0; // FIX: dish shown underneath while dragging
 let idleTimer = null;
-let resetTimer = null;
 let slideTimer = null;
 let swapTimer = null;
 let flipTimer = null;
@@ -377,7 +375,7 @@ function fadeOutLeaf(leaf, duration, delay, done) {
             {
                 duration: duration,
                 delay: delay,
-                easing: "ease-out",
+                easing: "ease-in-out",
                 fill: "forwards",
             }
         );
@@ -446,12 +444,13 @@ function updateDragFlipNow(dx) {
   dragProgress = Math.max(0, Math.min(1, distance / dragWidth));
   const directionSign = dragDirection === "next" ? -1 : 1;
   const angle = directionSign * 180 * dragProgress;
-  // Lift the paper slightly around the middle of the turn.
-  const lift = -9 * Math.sin(Math.PI * dragProgress);
-  const tilt = 5 * Math.sin(Math.PI * dragProgress);
+  // A single-axis turn keeps the spine attached at both corners.
   dragLeaf.style.transform =
-    `translate3d(0, ${lift}px, 0) ` +
-    `rotateY(${angle}deg) rotateX(${tilt}deg)`;
+    `rotateY(${angle}deg)`;
+  dragLeaf.style.setProperty(
+    "--turn-shade",
+    String(Math.sin(Math.PI * dragProgress) * 0.32)
+  );
   // Make the folded corner appear as the page lifts.
   dragLeaf.style.setProperty(
     "--curl-opacity",
@@ -462,7 +461,8 @@ function updateDragFlipNow(dx) {
     0,
     (dragProgress - LEAF_FADE_START) / (1 - LEAF_FADE_START)
   );
-  dragLeaf.style.opacity = String(1 - fade * 0.6);
+  const smoothFade = fade * fade * (3 - 2 * fade);
+  dragLeaf.style.opacity = String(1 - smoothFade);
 }
 /* --- Interactive page flip: finish or return --- */
 function finishDragFlip(commit) {
@@ -498,18 +498,19 @@ function finishDragFlip(commit) {
         // away at the same time, instead of removing it suddenly.
         // Remaining time scales with how far the page still has to go.
         const remaining = Math.max(
-            180,
+            300,
             Math.round(DRAG_FINISH_MS * (1 - progressAtRelease))
         );
         leaf.style.transition =
             `transform ${remaining}ms cubic-bezier(0.25, 0.8, 0.3, 1), ` +
-            `opacity ${remaining}ms ease-out`;
+            `opacity ${remaining}ms ease-in-out`;
         // Apply the transition before moving to the final position.
         void leaf.offsetWidth;
         leaf.style.transform =
             `translate3d(0, 0, 0) rotateY(${sign * 180}deg) rotateX(0deg)`;
         leaf.style.opacity = "0";
         leaf.style.setProperty("--curl-opacity", "0");
+        leaf.style.setProperty("--turn-shade", "0");
         flipTimer = setTimeout(function () {
             leaf.remove();
             flipTimer = null;
@@ -528,6 +529,7 @@ function finishDragFlip(commit) {
     // Page comes back fully visible and covers #dish again.
     leaf.style.opacity = "1";
     leaf.style.setProperty("--curl-opacity", "0");
+    leaf.style.setProperty("--turn-shade", "0");
     flipTimer = setTimeout(function () {
         // FIX: page is back in place and fully covers #dish –
         // restore the original dish, then remove the leaf in the
@@ -583,9 +585,8 @@ function transition(change, dir = "next", effect = "flip") {
     "category-exit",
     "category-enter"
   );
-  // FIX: fade the page out during the second half of the turn,
-  // so it does not vanish suddenly when the animation ends.
-  const fadeDelay = Math.round(FLIP_MS * 0.45);
+  // Fade over most of the turn, before the page rotates out of view.
+  const fadeDelay = Math.round(FLIP_MS * LEAF_FADE_START);
   fadeOutLeaf(leaf, FLIP_MS - fadeDelay, fadeDelay);
   flipTimer = setTimeout(() => {
     leaf.remove();
@@ -729,27 +730,20 @@ function resetDragFlip() {
 /* ===== Timers ===== */
 function clearTimers() {
   clearTimeout(idleTimer);
-  clearTimeout(resetTimer);
   clearTimeout(swapTimer);
   clearInterval(slideTimer);
   idleTimer = null;
-  resetTimer = null;
   swapTimer = null;
   slideTimer = null;
 }
 function startIdleTimer() {
-  // Restart BOTH timers after every valid interaction.
+  // Inactivity starts the slideshow; the welcome screen is only for page load.
   clearTimeout(idleTimer);
-  clearTimeout(resetTimer);
   idleTimer = null;
-  resetTimer = null;
   if (el.menu.hidden || slideshowActive) return;
   idleTimer = setTimeout(() => {
     startSlideshow();
   }, IDLE_MS);
-  resetTimer = setTimeout(() => {
-    showIntro();
-  }, RESET_MS);
 }
 function showSlide(first) {
   const list = featured();
@@ -758,6 +752,8 @@ function showSlide(first) {
   const apply = () => {
     if (!slideshowActive) return;
     setPhoto(el.idlePhoto, item);
+    const backgroundUrl = new URL(item.image, document.baseURI).href;
+    el.idle.style.setProperty("--idle-image", `url(${JSON.stringify(backgroundUrl)})`);
     el.idleName.textContent = item.name;
     el.idleDesc.textContent = item.description;
   };
@@ -801,7 +797,7 @@ function stopSlideshow() {
   slideTimer = null;
   el.idle.classList.remove("swap");
   el.idle.hidden = true;
-  // Start a fresh 30-second idle timer and 2-minute reset timer.
+  // Start a fresh 30-second idle timer after returning to the menu.
   startIdleTimer();
 }
 /* ===== Event handling ===== */
@@ -955,7 +951,8 @@ function bindEvents() {
     if (e.key === "Escape") {
       if (!el.intro.hidden) return;
       e.preventDefault();
-      showIntro();
+      // Reveal menu controls without reopening the welcome screen.
+      el.menu.classList.remove("ui-hidden");
       return;
     }
     if (slideshowActive || opening) return;
