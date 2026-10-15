@@ -82,6 +82,7 @@ menuItems.forEach((item) => {
 const IDLE_MS = 30000;
 const SLIDE_MS = 8000;
 const FADE_MS = 1200;
+const IDLE_EXIT_MS = 600;
 const SWIPE_MIN = 25;
 const FLIP_MS = 820;
 const WAKE_GUARD_MS = 500;
@@ -125,6 +126,8 @@ let dragTargetIndex = 0; // FIX: dish shown underneath while dragging
 let idleTimer = null;
 let slideTimer = null;
 let swapTimer = null;
+let idleExitTimer = null;
+let idleReturning = false;
 let flipTimer = null;
 let queuedTransitions = [];
 const $ = (id) => document.getElementById(id);
@@ -731,16 +734,20 @@ function resetDragFlip() {
 function clearTimers() {
   clearTimeout(idleTimer);
   clearTimeout(swapTimer);
+  clearTimeout(idleExitTimer);
   clearInterval(slideTimer);
   idleTimer = null;
   swapTimer = null;
+  idleExitTimer = null;
+  idleReturning = false;
+  el.idle.classList.remove("leaving");
   slideTimer = null;
 }
 function startIdleTimer() {
   // Inactivity starts the slideshow; the welcome screen is only for page load.
   clearTimeout(idleTimer);
   idleTimer = null;
-  if (el.menu.hidden || slideshowActive) return;
+  if (el.menu.hidden || slideshowActive || idleReturning) return;
   idleTimer = setTimeout(() => {
     startSlideshow();
   }, IDLE_MS);
@@ -771,7 +778,7 @@ function showSlide(first) {
   }, FADE_MS);
 }
 function startSlideshow() {
-  if (el.menu.hidden || slideshowActive || !featured().length) {
+  if (el.menu.hidden || slideshowActive || idleReturning || !featured().length) {
     return;
   }
   clearTimeout(idleTimer);
@@ -789,16 +796,26 @@ function startSlideshow() {
 }
 function stopSlideshow() {
   if (!slideshowActive) return;
+  // Continue from the visible opacity, including a tap during idle entry.
+  el.idle.style.setProperty("--idle-exit-opacity", getComputedStyle(el.idle).opacity);
+  el.idle.style.setProperty("--idle-exit-duration", `${IDLE_EXIT_MS}ms`);
   slideshowActive = false;
+  idleReturning = true;
   lastWake = Date.now();
   clearTimeout(swapTimer);
   clearInterval(slideTimer);
   swapTimer = null;
   slideTimer = null;
-  el.idle.classList.remove("swap");
-  el.idle.hidden = true;
-  // Start a fresh 30-second idle timer after returning to the menu.
-  startIdleTimer();
+  el.idle.classList.add("leaving");
+  // Keep the overlay in place until the fade finishes, absorbing extra taps.
+  idleExitTimer = setTimeout(() => {
+    el.idle.hidden = true;
+    el.idle.classList.remove("leaving", "swap");
+    idleExitTimer = null;
+    idleReturning = false;
+    lastWake = Date.now();
+    startIdleTimer();
+  }, IDLE_EXIT_MS);
 }
 /* ===== Event handling ===== */
 function bindEvents() {
@@ -974,6 +991,11 @@ function bindEvents() {
   // A single global pointer handler covers mouse, pen and touch.
   // Do not also register touchstart here: that would reset timers twice.
   document.addEventListener("pointerdown", (e) => {
+    if (idleReturning) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
     if (slideshowActive) {
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -986,6 +1008,11 @@ function bindEvents() {
   }, { capture: true, passive: false });
   // Keyboard interaction also counts as activity.
   document.addEventListener("keydown", (e) => {
+    if (idleReturning) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
     if (slideshowActive) {
       e.preventDefault();
       e.stopImmediatePropagation();

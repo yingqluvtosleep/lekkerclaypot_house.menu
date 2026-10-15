@@ -608,6 +608,13 @@ button {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+#idle.leaving {
+    animation: idleFadeOut var(--idle-exit-duration, 600ms) ease-in-out both;
+}
+@keyframes idleFadeOut {
+    from { opacity: var(--idle-exit-opacity, 1); }
+    to { opacity: 0; }
+}
 #idle .dish-photo img {
     animation: none;
 }
