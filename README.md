@@ -4,7 +4,7 @@ An interactive digital menu for Lekker Claypot House, featuring bilingual dish d
 
 ## View the Menu
 
-https://yingqluvtosleep.github.io/lch_menu/
+https://yingqluvtosleep.github.io/lekkerclaypot_house.menu/
 
 ## Features
 
