@@ -2,81 +2,133 @@
 /* ===== Categories & dishes ===== */
 const categories = [
   { id: "signature",  label: "Signature 招牌" },
-  { id: "claypot",    label: "Claypot 瓦煲" },
-  { id: "curry",      label: "Curry 咖喱" },
+  { id: "claypot-curry", label: "Claypot & Curry 瓦煲与咖喱" },
   { id: "side",      label: "Side 配菜" },
   { id: "vegetables", label: "Vegetables 蔬菜" },
   { id: "egg", label: "Egg 蛋" },
   { id: "other", label: "Other 其他" },
 ];
 const menuItems = [
-  { id: 1, category: "signature", name: "Claypot Chicken Rice 瓦煲鸡饭", description: "Aromatic Claypot Rice With Juicy Chicken 香气四溢的瓦煲饭，搭配鲜嫩多汁的鸡肉", price: "RM XX", image: "assets/images/claypot-chicken-rice.jpg", featured: true },
-  { id: 2, category: "signature", name: "Curry Fish Head 咖喱鱼头", description: "Tender Fish Head Bathed In Rich, Fragrant Curry 鲜嫩鱼头浸润在香浓浓郁的咖喱中", price: "RM XX", image: "assets/images/curry-fish-head.jpg", featured: true },
-  { id: 3, category: "claypot", name: "Claypot Chicken Rice 瓦煲鸡饭", description: "Freshly Cooked Claypot Rice With Savoury Chicken 香喷喷的现煮瓦煲饭，融合鸡肉的鲜美滋味", price: "RM XX", image: "assets/images/claypot-chicken-rice.jpg", featured: false },
-  { id: 4, category: "curry", name: "Curry Fish Head 咖喱鱼头", description: "A Rich, Spicy Curry With Tender, Flavourful Fish Head 香浓微辣的咖喱，配上鲜嫩入味的鱼头", price: "RM XX", image: "assets/images/curry-fish-head.jpg", featured: false },
-  { id: 5, category: "curry", name: "Curry Fish Meat 咖喱鱼肉", description: "Delicate Fish Meat Simmered In Fragrant Curry 鲜嫩鱼肉慢煮于香气扑鼻的咖喱中", price: "RM XX", image: "assets/images/curry-fish-meat.jpg", featured: false },
-  { id: 6, category: "curry", name: "Curry Fish Meat & Head 咖喱鱼头 & 鱼肉", description: "The Best Of Both Worlds, With Fish Head And Fish Meat In Rich Curry 鱼头与鱼肉双重美味，搭配香浓醇厚的咖喱", price: "RM XX", image: "assets/images/curry-fish-head-meat.jpg", featured: false },
-  { id: 7, category: "curry", name: "Curry Prawn 咖喱虾", description: "Juicy Prawns Coated In A Rich, Aromatic Curry 鲜甜多汁的虾，裹上香浓诱人的咖喱", price: "RM XX", image: "assets/images/curry-prawn.jpg", featured: false },
-  { id: 8, category: "curry", name: "Curry Sotong 咖喱苏东", description: "Tender Sotong Infused With Bold, Fragrant Curry Flavours 弹嫩苏东吸收浓郁咖喱精华，香气十足", price: "RM XX", image: "assets/images/curry-sotong.jpg", featured: false },
-  { id: 9, category: "curry", name: "Curry Prawn & Sotong 咖喱虾 & 苏东", description: "A Seafood Duo Of Juicy Prawns And Tender Sotong In Rich Curry 鲜甜多汁的虾与弹嫩苏东相遇，融入香浓咖喱的美味组合", price: "RM XX", image: "assets/images/curry-prawn-sotong.jpg", featured: true },
-  { id: 10, category: "side", name: "Mushroom Chicken Feet 香菇鸡脚", description: "Tender Chicken Feet Braised With Savoury Mushrooms 香菇焖煮鸡脚，香浓入味", price: "RM XX", image: "assets/images/mushroom-chicken-feet.jpg", featured: true },
-  { id: 11, category: "side", name: "Pork Vinegar Trotter 猪脚醋", description: "Tender Pork Trotter Simmered In Rich, Tangy Vinegar 酸香浓郁的猪脚醋，猪脚软嫩入味", price: "RM XX", image: "assets/images/pork-vinegar-trotter.jpg", featured: true },
-  { id: 12, category: "vegetables", name: "Iceberg Lettuce 生菜", description: "Fresh And Crisp Iceberg Lettuce 清爽脆嫩的生菜", price: "RM XX", image: "assets/images/iceberg-lettuce.jpg", featured: false },
-  { id: 13, category: "vegetables", name: "Chinese Cabbage 小白菜", description: "Fresh Chinese Cabbage With A Naturally Sweet Taste 清新爽口的小白菜，带有自然清甜", price: "RM XX", image: "assets/images/chinese-cabbage.jpg", featured: false },
-  { id: 14, category: "vegetables", name: "Kailan 芥兰", description: "Crunchy Kailan With A Fresh, Earthy Flavour 清脆爽口的芥兰，滋味鲜美", price: "RM XX", image: "assets/images/kailan.jpg", featured: false },
-  { id: 15, category: "vegetables", name: "Beansprouts (Taugeh) 豆芽", description: "Light And Crunchy Beansprouts 清爽脆嫩的豆芽", price: "RM XX", image: "assets/images/beansprouts.jpg", featured: false },
-  { id: 16, category: "egg", name: "Plain Fried Egg (Kosong) 煎蛋", description: "A Simple Fried Egg With Golden Edges 香煎鸡蛋，蛋香十足", price: "RM XX", image: "assets/images/plain-fried-egg.jpg", featured: false },
-  { id: 17, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", price: "RM XX", image: "assets/images/fried-egg-onion.jpg", featured: false },
-  { id: 18, category: "egg", name: "Fried Egg With Chinese Sausage 腊肠蛋", description: "Savoury Fried Egg With Fragrant Chinese Sausage 香煎鸡蛋搭配咸香腊肠", price: "RM XX", image: "assets/images/fried-egg-chinese-sausage.jpg", featured: false },
-  { id: 19, category: "egg", name: "Egg Foo Yong 芙蓉蛋", description: "Golden Egg Foo Yong With A Soft, Fluffy Centre 金黄香煎芙蓉蛋，口感松软", price: "RM XX", image: "assets/images/egg-foo-yong.jpg", featured: false },
-  { id: 20, category: "other", name: "Sesame Oil Chicken 麻油鸡", description: "Tender Chicken Infused With Fragrant Sesame Oil 香浓麻油焖鸡，鸡肉鲜嫩入味", price: "RM XX", image: "assets/images/sesame-oil-chicken.jpg", featured: false },
-  { id: 21, category: "other", name: "Chicken Rendang 仁当鸡", description: "Tender Chicken Cooked In Rich, Aromatic Rendang Spices 鸡肉融合浓郁仁当香料，香辣惹味", price: "RM XX", image: "assets/images/chicken-rendang.jpg", featured: false },
-  { id: 22, category: "other", name: "Fried Chicken 炸鸡", description: "Crispy Golden Fried Chicken With Juicy Meat 外皮金黄酥脆，鸡肉鲜嫩多汁", price: "RM XX", image: "assets/images/fried-chicken.jpg", featured: false },
-  { id: 23, category: "other", name: "Fried Tofu With Thai Sauce 三味豆腐", description: "Golden Fried Tofu Drizzled With Tangy Thai Sauce 外酥内嫩的炸豆腐，搭配酸甜泰式酱汁", price: "RM XX", image: "assets/images/fried-tofu-thai-sauce.jpg", featured: true },
-  { id: 24, category: "other", name: "Fried Sotong 炸苏东", description: "Crispy Fried Sotong With A Tender Bite 外酥内嫩的炸苏东，鲜香可口", price: "RM XX", image: "assets/images/fried-sotong.jpg", featured: false },
-  { id: 25, category: "other", name: "Assam Prawn 亚三哥虾", description: "Juicy Prawns Tossed In A Tangy, Fragrant Assam Sauce 鲜甜多汁的虾，搭配酸香开胃的亚三酱汁", price: "RM XX", image: "assets/images/assam-prawn.jpg", featured: false },
-  { id: 26, category: "other", name: "Kam Heong Prawn 甘香虾", description: "Juicy Prawns Stir-Fried With Aromatic Kam Heong Spices 鲜虾与甘香香料热炒，香气浓郁惹味", price: "RM XX", image: "assets/images/kam-heong-prawn.jpg", featured: false },
+  { id: 1, category: "signature", name: "Claypot Chicken Rice 瓦煲鸡饭", description: "Aromatic Claypot Rice With Juicy Chicken 香气四溢的瓦煲饭，搭配鲜嫩多汁的鸡肉", image: "assets/images/claypot-chicken-rice.jpg", featured: true },
+  { id: 2, category: "signature", name: "Curry Fish Head 咖喱鱼头", description: "Tender Fish Head Bathed In Rich, Fragrant Curry 鲜嫩鱼头浸润在香浓浓郁的咖喱中", image: "assets/images/curry-head.jpg", featured: true, containsFishHead: true },
+  { id: 3, category: "claypot-curry", name: "Claypot Chicken Rice 瓦煲鸡饭", description: "Freshly Cooked Claypot Rice With Savoury Chicken 香喷喷的现煮瓦煲饭，融合鸡肉的鲜美滋味", image: "assets/images/claypot-chicken-rice.jpg", featured: false },
+  { id: 4, category: "claypot-curry", name: "Curry Fish Head 咖喱鱼头", description: "A Rich, Spicy Curry With Tender, Flavourful Fish Head 香浓微辣的咖喱，配上鲜嫩入味的鱼头", image: "assets/images/curry-head.jpg", featured: false, containsFishHead: true },
+  { id: 5, category: "claypot-curry", name: "Curry Fish Meat 咖喱鱼肉", description: "Delicate Fish Meat Simmered In Fragrant Curry 鲜嫩鱼肉慢煮于香气扑鼻的咖喱中", image: "assets/images/curry-meat.jpg", featured: false },
+  { id: 6, category: "claypot-curry", name: "Curry Prawn 咖喱虾", description: "Juicy Prawns Coated In A Rich, Aromatic Curry 鲜甜多汁的虾，裹上香浓诱人的咖喱", image: "assets/images/curry-prawn.jpg", featured: false },
+  { id: 7, category: "claypot-curry", name: "Curry Sotong 咖喱苏东", description: "Tender Sotong Infused With Bold, Fragrant Curry Flavours 弹嫩苏东吸收浓郁咖喱精华，香气十足", image: "assets/images/curry-sotong.jpg", featured: false },
+  { id: 8, category: "claypot-curry", name: "Curry Fish Head & Fish Meat 咖喱鱼头 & 鱼肉", description: "The Best Of Both Worlds, With Fish Head And Fish Meat In Rich Curry 鱼头与鱼肉双重美味，搭配香浓醇厚的咖喱", image: "assets/images/curry-head-meat.jpg", featured: false, containsFishHead: true },
+  { id: 9, category: "claypot-curry", name: "Curry Fish Head & Prawn 咖喱鱼头 & 虾", description: "Fish head and juicy prawns in rich, aromatic curry. 鱼头搭配鲜虾，融入香浓咖喱。", image: "assets/images/curry-head-prawn.jpg", featured: false, containsFishHead: true },
+  { id: 10, category: "claypot-curry", name: "Curry Fish Head & Sotong 咖喱鱼头 & 苏东", description: "Fish head and tender sotong in rich, aromatic curry. 鱼头搭配弹嫩苏东，融入香浓咖喱。", image: "", featured: false, containsFishHead: true },
+  { id: 11, category: "claypot-curry", name: "Curry Fish Meat & Prawn 咖喱鱼肉 & 虾", description: "Tender fish meat and juicy prawns in rich, aromatic curry. 鲜嫩鱼肉搭配鲜虾，融入香浓咖喱。", image: "", featured: false },
+  { id: 12, category: "claypot-curry", name: "Curry Fish Meat & Sotong 咖喱鱼肉 & 苏东", description: "Tender fish meat and sotong in rich, aromatic curry. 鲜嫩鱼肉搭配苏东，融入香浓咖喱。", image: "assets/images/curry-meat-sotong.jpg", featured: false },
+  { id: 13, category: "claypot-curry", name: "Curry Prawn & Sotong 咖喱虾 & 苏东", description: "A Seafood Duo Of Juicy Prawns And Tender Sotong In Rich Curry 鲜甜多汁的虾与弹嫩苏东相遇，融入香浓咖喱的美味组合", image: "assets/images/curry-prawn-sotong.jpg", featured: false },
+  { id: 14, category: "claypot-curry", name: "Curry Fish Head, Fish Meat & Prawn 咖喱鱼头 & 鱼肉 & 虾", description: "Fish head, tender fish meat and juicy prawns in aromatic curry. 鱼头、鲜嫩鱼肉与鲜虾，融入香浓咖喱。", image: "assets/images/curry-head-meat-prawn.jpg", featured: false, containsFishHead: true },
+  { id: 15, category: "claypot-curry", name: "Curry Fish Head, Fish Meat & Sotong 咖喱鱼头 & 鱼肉 & 苏东", description: "Fish head, tender fish meat and sotong in aromatic curry. 鱼头、鲜嫩鱼肉与苏东，融入香浓咖喱。", image: "assets/images/curry-head-meat-sotong.jpg", featured: false, containsFishHead: true },
+  { id: 16, category: "claypot-curry", name: "Curry Fish Head, Prawn & Sotong (3 Flavour) 咖喱鱼头 & 虾 & 苏东（3B）", description: "Fish head, juicy prawns and tender sotong in aromatic curry. 鱼头、鲜虾与弹嫩苏东，融入香浓咖喱。", image: "assets/images/curry-head-prawn-sotong.jpg", featured: false, containsFishHead: true },
+  { id: 17, category: "claypot-curry", name: "Curry Fish Meat, Prawn & Sotong (3 Flavour) 咖喱鱼肉 & 虾 & 苏东（3B）", description: "Tender fish meat, juicy prawns and sotong in aromatic curry. 鲜嫩鱼肉、鲜虾与苏东，融入香浓咖喱。", image: "", featured: false },
+  { id: 18, category: "claypot-curry", name: "Curry Fish Head, Fish Meat, Prawn & Sotong (4 Flavour) 咖喱鱼头 & 鱼肉 & 虾 & 苏东（4B）", description: "Fish head, fish meat, prawns and sotong in aromatic curry. 鱼头、鱼肉、鲜虾与苏东，汇聚香浓咖喱。", image: "assets/images/curry-head-meat-prawn-sotong.jpg", featured: false, containsFishHead: true },
+  { id: 19, category: "side", name: "Mushroom Chicken Feet 香菇鸡脚", description: "Tender Chicken Feet Braised With Savoury Mushrooms 香菇焖煮鸡脚，香浓入味", image: "assets/images/mushroom-chicken-feet.jpg", featured: true },
+  { id: 20, category: "side", name: "Pork Vinegar Trotter 猪脚醋", description: "Tender Pork Trotter Simmered In Rich, Tangy Vinegar 酸香浓郁的猪脚醋，猪脚软嫩入味", image: "assets/images/pork-vinegar-trotter.jpg", featured: true },
+  { id: 21, category: "vegetables", name: "Iceberg Lettuce 生菜", description: "Fresh And Crisp Iceberg Lettuce 清爽脆嫩的生菜", image: "assets/images/iceberg-lettuce.jpg", featured: false },
+  { id: 22, category: "vegetables", name: "Chinese Cabbage 小白菜", description: "Fresh Chinese Cabbage With A Naturally Sweet Taste 清新爽口的小白菜，带有自然清甜", image: "assets/images/chinese-cabbage.jpg", featured: false },
+  { id: 23, category: "vegetables", name: "Kailan 芥兰", description: "Crunchy Kailan With A Fresh, Earthy Flavour 清脆爽口的芥兰，滋味鲜美", image: "assets/images/kailan.jpg", featured: false },
+  { id: 24, category: "vegetables", name: "Kailan with Roast Pork 芥兰红烧肉", description: "Kailan and roast pork in a savoury sauce. 芥兰搭配烧肉，酱香浓郁。", image: "assets/images/kailan-roast-pork.jpg", featured: false },
+  { id: 25, category: "vegetables", name: "Beansprouts (Taugeh) 豆芽", description: "Light And Crunchy Beansprouts 清爽脆嫩的豆芽", image: "assets/images/beansprouts.jpg", featured: false },
+  { id: 26, category: "egg", name: "Plain Fried Egg (Kosong) 煎蛋", description: "A Simple Fried Egg With Golden Edges 香煎鸡蛋，蛋香十足", image: "assets/images/plain-fried-egg.jpg", featured: false },
+  { id: 27, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", image: "assets/images/fried-egg-onion.jpg", featured: false },
+  { id: 28, category: "egg", name: "Fried Egg With Chinese Sausage 腊肠蛋", description: "Savoury Fried Egg With Fragrant Chinese Sausage 香煎鸡蛋搭配咸香腊肠", image: "assets/images/fried-egg-chinese-sausage.jpg", featured: false },
+  { id: 29, category: "egg", name: "Egg Foo Yong 芙蓉蛋", description: "Golden Egg Foo Yong With A Soft, Fluffy Centre 金黄香煎芙蓉蛋，口感松软", image: "assets/images/egg-foo-yong.jpg", featured: false },
+  { id: 30, category: "other", name: "Sesame Oil Chicken 麻油鸡", description: "Tender Chicken Infused With Fragrant Sesame Oil 香浓麻油焖鸡，鸡肉鲜嫩入味", image: "assets/images/sesame-oil-chicken.jpg", featured: false },
+  { id: 31, category: "other", name: "Chicken Rendang 仁当鸡", description: "Tender Chicken Cooked In Rich, Aromatic Rendang Spices 鸡肉融合浓郁仁当香料，香辣惹味", image: "assets/images/chicken-rendang.jpg", featured: false },
+  { id: 32, category: "other", name: "Fried Chicken 炸鸡", description: "Crispy Golden Fried Chicken With Juicy Meat 外皮金黄酥脆，鸡肉鲜嫩多汁", image: "assets/images/fried-chicken.jpg", featured: false },
+  { id: 33, category: "other", name: "Fried Tofu With Thai Sauce 三味豆腐", description: "Golden Fried Tofu Drizzled With Tangy Thai Sauce 外酥内嫩的炸豆腐，搭配酸甜泰式酱汁", image: "assets/images/fried-tofu-thai-sauce.jpg", featured: true },
+  { id: 34, category: "other", name: "Fried Sotong 炸苏东", description: "Crispy Fried Sotong With A Tender Bite 外酥内嫩的炸苏东，鲜香可口", image: "assets/images/fried-sotong.jpg", featured: false },
+  { id: 35, category: "other", name: "Assam Prawn 亚三哥虾", description: "Juicy Prawns Tossed In A Tangy, Fragrant Assam Sauce 鲜甜多汁的虾，搭配酸香开胃的亚三酱汁", image: "assets/images/assam-prawn.jpg", featured: false },
+  { id: 36, category: "other", name: "Kam Heong Prawn 甘香虾", description: "Juicy Prawns Stir-Fried With Aromatic Kam Heong Spices 鲜虾与甘香香料热炒，香气浓郁惹味", image: "assets/images/kam-heong-prawn.jpg", featured: false },
 ];
 /* ===== Menu prices ===== */
 const priceById = {
-  // Claypot rice / 煲仔饭
+  // Claypot Chicken Rice 瓦煲鸡饭
   1: "Small／小份 RM9.00\nMedium／中份 RM16.00\nLarge／大份 RM24.00\nAdd-ons charged separately／配料另收费",
+  // Curry Fish Head 咖喱鱼头
+  2: "2 persons／2人份 RM32.00\n3 persons／3人份 RM48.00\n4 persons／4人份 RM62.00\n5 persons／5人份 RM76.00\n6 persons／6人份 RM90.00\n7 persons／7人份 RM104.00\n8 persons／8人份 RM118.00",
+  // Claypot Chicken Rice 瓦煲鸡饭
   3: "Small／小份 RM9.00\nMedium／中份 RM16.00\nLarge／大份 RM24.00\nAdd-ons charged separately／配料另收费",
-  // Curry fish head / 咖喱鱼头
-  2: "2 persons／2人份 RM32.00\n3 persons／3人份 RM48.00\n4 persons／4人份 RM62.00\n5 persons／5人份 RM75.00\n6 persons／6人份 RM90.00\n7 persons／7人份 RM105.00\n8 persons／8人份 RM120.00",
-  4: "2 persons／2人份 RM32.00\n3 persons／3人份 RM48.00\n4 persons／4人份 RM62.00\n5 persons／5人份 RM75.00\n6 persons／6人份 RM90.00\n7 persons／7人份 RM105.00\n8 persons／8人份 RM120.00",
-  // Curry fish meat / 咖喱鱼肉
+  // Curry Fish Head 咖喱鱼头
+  4: "2 persons／2人份 RM32.00\n3 persons／3人份 RM48.00\n4 persons／4人份 RM62.00\n5 persons／5人份 RM76.00\n6 persons／6人份 RM90.00\n7 persons／7人份 RM104.00\n8 persons／8人份 RM118.00",
+  // Curry Fish Meat 咖喱鱼肉
   5: "2 persons／2人份 RM35.00\n3 persons／3人份 RM52.00\n4 persons／4人份 RM68.00\n5 persons／5人份 RM84.00\n6 persons／6人份 RM100.00\n7 persons／7人份 RM116.00\n8 persons／8人份 RM132.00",
-  // Curry prawns / 咖喱虾
-  7: "Per serving／每份 RM40.00++\nEach extra large prawn／每只额外大虾 RM5.00",
-  // Curry sotong / 咖喱苏东（鱿鱼）
-  8: "Small／小份 RM30.00\nMedium／中份 RM45.00\nLarge／大份 RM60.00",
-  // Side dishes / 配菜
-  10: "Small／小份 RM6.00\nLarge／大份 RM12.00",
-  11: "Small／小份 RM12.00\nLarge／大份 RM22.00",
-  // Vegetables / 蔬菜
-  12: "Small／小份 RM8.00\nLarge／大份 RM14.00",
-  13: "Small／小份 RM8.00\nLarge／大份 RM14.00",
-  14: "Small／小份 RM8.00\nLarge／大份 RM14.00",
-  15: "Small／小份 RM8.00\nLarge／大份 RM14.00",
-  // Eggs / 蛋类
-  16: "Small／小份 RM3.00\nLarge／大份 RM5.00",
-  17: "Small／小份 RM4.00\nLarge／大份 RM6.00",
-  18: "Small／小份 RM5.00\nLarge／大份 RM8.00",
-  19: "Per serving／每份 RM10.00",
-  // Other dishes / 其他菜肴
-  20: "Per serving／每份 RM15.00",
-  21: "Per serving／每份 RM15.00",
-  22: "Per serving／每份 RM15.00",
-  23: "Small／小份 RM6.00\nLarge／大份 RM12.00",
-  24: "Per serving／每份 RM15.00",
-  25: "Per serving／每份 RM40.00++\nEach extra large prawn／每只额外大虾 RM5.00",
-  26: "Per serving／每份 RM40.00++\nEach extra large prawn／每只额外大虾 RM5.00"
+  // Curry Prawn 咖喱虾
+  6: "Per serving／每份 RM40.00++\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Sotong 咖喱苏东
+  7: "Small／小份 RM30.00\nMedium／中份 RM45.00\nLarge／大份 RM60.00\nAdd-ons charged separately／配料另收费",
+  // Curry Fish Head & Fish Meat 咖喱鱼头 & 鱼肉
+  8: "2 persons／2人份 RM44.00\n3 persons／3人份 RM66.00\n4 persons／4人份 RM86.00\n5 persons／5人份 RM105.00\n6 persons／6人份 RM126.00\n7 persons／7人份 RM146.00\n8 persons／8人份 RM166.00",
+  // Curry Fish Head & Prawn 咖喱鱼头 & 虾
+  9: "2 persons／2人份 RM42.00\n3 persons／3人份 RM63.00\n4 persons／4人份 RM82.00\n5 persons／5人份 RM101.00\n6 persons／6人份 RM120.00\n7 persons／7人份 RM139.00\n8 persons／8人份 RM158.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Fish Head & Sotong 咖喱鱼头 & 苏东
+  10: "2 persons／2人份 RM44.00\n3 persons／3人份 RM66.00\n4 persons／4人份 RM86.00\n5 persons／5人份 RM106.00\n6 persons／6人份 RM126.00\n7 persons／7人份 RM146.00\n8 persons／8人份 RM166.00",
+  // Curry Fish Meat & Prawn 咖喱鱼肉 & 虾
+  11: "2 persons／2人份 RM45.00\n3 persons／3人份 RM67.00\n4 persons／4人份 RM88.00\n5 persons／5人份 RM109.00\n6 persons／6人份 RM130.00\n7 persons／7人份 RM151.00\n8 persons／8人份 RM172.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Fish Meat & Sotong 咖喱鱼肉 & 苏东
+  12: "2 persons／2人份 RM47.00\n3 persons／3人份 RM70.00\n4 persons／4人份 RM92.00\n5 persons／5人份 RM114.00\n6 persons／6人份 RM136.00\n7 persons／7人份 RM158.00\n8 persons／8人份 RM180.00",
+  // Curry Prawn & Sotong 咖喱虾 & 苏东
+  13: "2 persons／2人份 RM22.00\n3 persons／3人份 RM33.00\n4 persons／4人份 RM44.00\n5 persons／5人份 RM55.00\n6 persons／6人份 RM66.00\n7 persons／7人份 RM77.00\n8 persons／8人份 RM88.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Fish Head, Fish Meat & Prawn 咖喱鱼头 & 鱼肉 & 虾
+  14: "2 persons／2人份 RM54.00\n3 persons／3人份 RM81.00\n4 persons／4人份 RM106.00\n5 persons／5人份 RM130.00\n6 persons／6人份 RM156.00\n7 persons／7人份 RM181.00\n8 persons／8人份 RM206.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Fish Head, Fish Meat & Sotong 咖喱鱼头 & 鱼肉 & 苏东
+  15: "2 persons／2人份 RM56.00\n3 persons／3人份 RM84.00\n4 persons／4人份 RM110.00\n5 persons／5人份 RM135.00\n6 persons／6人份 RM162.00\n7 persons／7人份 RM188.00\n8 persons／8人份 RM214.00",
+  // Curry Fish Head, Prawn & Sotong (3 Flavour) 咖喱鱼头 & 虾 & 苏东（3B）
+  16: "2 persons／2人份 RM54.00\n3 persons／3人份 RM81.00\n4 persons／4人份 RM106.00\n5 persons／5人份 RM131.00\n6 persons／6人份 RM156.00\n7 persons／7人份 RM181.00\n8 persons／8人份 RM206.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Fish Meat, Prawn & Sotong (3 Flavour) 咖喱鱼肉 & 虾 & 苏东（3B）
+  17: "2 persons／2人份 RM57.00\n3 persons／3人份 RM85.00\n4 persons／4人份 RM112.00\n5 persons／5人份 RM139.00\n6 persons／6人份 RM166.00\n7 persons／7人份 RM193.00\n8 persons／8人份 RM220.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Curry Fish Head, Fish Meat, Prawn & Sotong (4 Flavour) 咖喱鱼头 & 鱼肉 & 虾 & 苏东（4B）
+  18: "2 persons／2人份 RM66.00\n3 persons／3人份 RM99.00\n4 persons／4人份 RM130.00\n5 persons／5人份 RM160.00\n6 persons／6人份 RM192.00\n7 persons／7人份 RM223.00\n8 persons／8人份 RM254.00\nEach additional prawn／每加一只虾 RM5.00",
+  // Mushroom Chicken Feet 香菇鸡脚
+  19: "Small／小份 RM6.00\nLarge／大份 RM12.00",
+  // Pork Vinegar Trotter 猪脚醋
+  20: "Small／小份 RM12.00\nLarge／大份 RM22.00",
+  // Iceberg Lettuce 生菜
+  21: "Small／小份 RM8.00\nLarge／大份 RM14.00",
+  // Chinese Cabbage 小白菜
+  22: "Small／小份 RM8.00\nLarge／大份 RM14.00",
+  // Kailan 芥兰
+  23: "Small／小份 RM8.00\nLarge／大份 RM14.00",
+  // Kailan with Roast Pork 芥兰红烧肉
+  24: "Per serving／每份 RM22.00",
+  // Beansprouts (Taugeh) 豆芽
+  25: "Small／小份 RM8.00\nLarge／大份 RM14.00",
+  // Plain Fried Egg (Kosong) 煎蛋
+  26: "Small／小份 RM3.00\nLarge／大份 RM5.00",
+  // Fried Egg With Onion 洋葱蛋
+  27: "Small／小份 RM4.00\nLarge／大份 RM6.00",
+  // Fried Egg With Chinese Sausage 腊肠蛋
+  28: "Small／小份 RM5.00\nLarge／大份 RM8.00",
+  // Egg Foo Yong 芙蓉蛋
+  29: "Per serving／每份 RM10.00",
+  // Sesame Oil Chicken 麻油鸡
+  30: "Per serving／每份 RM15.00",
+  // Chicken Rendang 仁当鸡
+  31: "Per serving／每份 RM15.00",
+  // Fried Chicken 炸鸡
+  32: "Per serving／每份 RM15.00",
+  // Fried Tofu With Thai Sauce 三味豆腐
+  33: "Small／小份 RM6.00\nLarge／大份 RM12.00",
+  // Fried Sotong 炸苏东
+  34: "Per serving／每份 RM15.00",
+  // Assam Prawn 亚三哥虾
+  35: "Per serving／每份 RM40.00++\nEach additional prawn／每加一只虾 RM5.00",
+  // Kam Heong Prawn 甘香虾
+  36: "Per serving／每份 RM40.00++\nEach additional prawn／每加一只虾 RM5.00",
 };
-// Apply prices to the existing menu items.
-// Items without confirmed prices will display no price.
+// Keep confirmed prices unchanged and add the weight note to fish-head dishes.
+const fishHeadWeightNote = "Final price is based on the weight of the fish head／最终售价按鱼头实际重量计算";
 menuItems.forEach((item) => {
-  item.price = priceById[item.id] || "";
+  const priceLines = [priceById[item.id] || ""];
+  if (item.containsFishHead) {
+    priceLines.push(fishHeadWeightNote);
+  }
+  item.price = priceLines.filter(Boolean).join("\n");
 });
 /* ===== Settings ===== */
 const IDLE_MS = 30000;
@@ -167,6 +219,12 @@ function preloadImages() {
 }
 /* ===== Rendering ===== */
 function setPhoto(container, item) {
+  if (!item.image) {
+    container.replaceChildren();
+    container.dataset.initial = item.name.charAt(0);
+    container.classList.add("noimg");
+    return;
+  }
   // Check the sharp foreground image to avoid recreating both images.
   const existingMain = container.querySelector(".dish-photo-main");
 
@@ -239,6 +297,7 @@ function renderDish(item) {
   el.name.textContent = item.name;
   el.desc.textContent = item.description;
   el.price.innerHTML = renderPriceList(item.price);
+  el.price.hidden = !item.price;
 }
 /* --- FIX: render page counter and arrow state only --- */
 function renderCounter() {
@@ -272,7 +331,12 @@ function renderPriceList(priceText) {
         '<span>MYR</span>' +
         '</div>' +
         '<div class="price-rows">';
+    var notes = [];
     lines.forEach(function (line) {
+        if (/^(Add-ons charged separately|Final price is based on the weight of the fish head)/i.test(line)) {
+            notes.push(line);
+            return;
+        }
         var match = line.match(/^(.*?)\s+(RM\s*[\d,.]+\+{0,2})$/i);
         if (match) {
             html +=
@@ -292,6 +356,21 @@ function renderPriceList(priceText) {
         }
     });
     html += '</div>';
+    if (notes.length > 0) {
+        html += '<div class="price-notes">';
+        notes.forEach(function (note) {
+            var parts = note.split("／");
+            var english = parts.shift().trim();
+            var chinese = parts.join("／").trim();
+            html += '<p class="price-note"><span>' +
+                escapePriceText(english) + '</span>';
+            if (chinese) {
+                html += '<span lang="zh">' + escapePriceText(chinese) + '</span>';
+            }
+            html += '</p>';
+        });
+        html += '</div>';
+    }
     return html;
 }
 /* --- Dish pricing: escape text safely --- */
@@ -353,6 +432,7 @@ function makeLeaf(dir, baseIndex = index) {
             backDesc.textContent = adjacentItem.description;
         }
         if (backPrice) {
+            backPrice.hidden = !adjacentItem.price;
             backPrice.innerHTML =
                 renderPriceList(adjacentItem.price);
         }
