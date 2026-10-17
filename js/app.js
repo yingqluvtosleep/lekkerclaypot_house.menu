@@ -25,15 +25,15 @@ const menuItems = [
   { id: 14, category: "claypot-curry", name: "Curry Fish Head, Fish Meat & Prawn 咖喱鱼头 & 鱼肉 & 虾", description: "Fish head, tender fish meat and juicy prawns in aromatic curry. 鱼头、鲜嫩鱼肉与鲜虾，融入香浓咖喱。", image: "assets/images/curry-head-meat-prawn.jpg", featured: false, containsFishHead: true },
   { id: 15, category: "claypot-curry", name: "Curry Fish Head, Fish Meat & Sotong 咖喱鱼头 & 鱼肉 & 苏东", description: "Fish head, tender fish meat and sotong in aromatic curry. 鱼头、鲜嫩鱼肉与苏东，融入香浓咖喱。", image: "assets/images/curry-head-meat-sotong.jpg", featured: false, containsFishHead: true },
   { id: 16, category: "claypot-curry", name: "Curry Fish Head, Prawn & Sotong (3 Flavour) 咖喱鱼头 & 虾 & 苏东（3B）", description: "Fish head, juicy prawns and tender sotong in aromatic curry. 鱼头、鲜虾与弹嫩苏东，融入香浓咖喱。", image: "assets/images/curry-head-prawn-sotong.jpg", featured: false, containsFishHead: true },
-  { id: 17, category: "claypot-curry", name: "Curry Fish Meat, Prawn & Sotong (3 Flavour) 咖喱鱼肉 & 虾 & 苏东（3B）", description: "Tender fish meat, juicy prawns and sotong in aromatic curry. 鲜嫩鱼肉、鲜虾与苏东，融入香浓咖喱。", image: "", featured: false },
+  { id: 17, category: "claypot-curry", name: "Curry Fish Meat, Prawn & Sotong (3 Flavour) 咖喱鱼肉 & 虾 & 苏东（3B）", description: "Tender fish meat, juicy prawns and sotong in aromatic curry. 鲜嫩鱼肉、鲜虾与苏东，融入香浓咖喱。", image: "assets/images/curry-meat-prawn-sotong.jpg", featured: false },
   { id: 18, category: "claypot-curry", name: "Curry Fish Head, Fish Meat, Prawn & Sotong (4 Flavour) 咖喱鱼头 & 鱼肉 & 虾 & 苏东（4B）", description: "Fish head, fish meat, prawns and sotong in aromatic curry. 鱼头、鱼肉、鲜虾与苏东，汇聚香浓咖喱。", image: "assets/images/curry-head-meat-prawn-sotong.jpg", featured: false, containsFishHead: true },
   { id: 19, category: "side", name: "Mushroom Chicken Feet 香菇鸡脚", description: "Tender Chicken Feet Braised With Savoury Mushrooms 香菇焖煮鸡脚，香浓入味", image: "assets/images/mushroom-chicken-feet.jpg", featured: true },
   { id: 20, category: "side", name: "Pork Vinegar Trotter 猪脚醋", description: "Tender Pork Trotter Simmered In Rich, Tangy Vinegar 酸香浓郁的猪脚醋，猪脚软嫩入味", image: "assets/images/pork-vinegar-trotter.jpg", featured: true },
   { id: 21, category: "vegetables", name: "Iceberg Lettuce 生菜", description: "Fresh And Crisp Iceberg Lettuce 清爽脆嫩的生菜", image: "assets/images/iceberg-lettuce.jpg", featured: false },
   { id: 22, category: "vegetables", name: "Chinese Cabbage 小白菜", description: "Fresh Chinese Cabbage With A Naturally Sweet Taste 清新爽口的小白菜，带有自然清甜", image: "assets/images/chinese-cabbage.jpg", featured: false },
   { id: 23, category: "vegetables", name: "Kailan 芥兰", description: "Crunchy Kailan With A Fresh, Earthy Flavour 清脆爽口的芥兰，滋味鲜美", image: "assets/images/kailan.jpg", featured: false },
-  { id: 24, category: "vegetables", name: "Kailan with Roast Pork 芥兰红烧肉", description: "Kailan and roast pork in a savoury sauce. 芥兰搭配烧肉，酱香浓郁。", image: "assets/images/kailan-roast-pork.jpg", featured: false },
   { id: 25, category: "vegetables", name: "Beansprouts (Taugeh) 豆芽", description: "Light And Crunchy Beansprouts 清爽脆嫩的豆芽", image: "assets/images/beansprouts.jpg", featured: false },
+  { id: 24, category: "vegetables", name: "Chinese Cabbage with Braised Pork 小白菜炒红烧肉", description: "Chinese cabbage stir-fried with braised pork in a savoury sauce. 小白菜搭配红烧肉热炒，酱香浓郁。", image: "assets/images/chinese-cabbage-braised-pork.jpg", featured: false },
   { id: 26, category: "egg", name: "Plain Fried Egg (Kosong) 煎蛋", description: "A Simple Fried Egg With Golden Edges 香煎鸡蛋，蛋香十足", image: "assets/images/plain-fried-egg.jpg", featured: false },
   { id: 27, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", image: "assets/images/fried-egg-onion.jpg", featured: false },
   { id: 28, category: "egg", name: "Fried Egg With Chinese Sausage 腊肠蛋", description: "Savoury Fried Egg With Fragrant Chinese Sausage 香煎鸡蛋搭配咸香腊肠", image: "assets/images/fried-egg-chinese-sausage.jpg", featured: false },
@@ -94,7 +94,7 @@ const priceById = {
   22: "Small／小份 RM8.00\nLarge／大份 RM14.00",
   // Kailan 芥兰
   23: "Small／小份 RM8.00\nLarge／大份 RM14.00",
-  // Kailan with Roast Pork 芥兰红烧肉
+  // Chinese Cabbage with Braised Pork 小白菜炒红烧肉
   24: "Per serving／每份 RM22.00",
   // Beansprouts (Taugeh) 豆芽
   25: "Small／小份 RM8.00\nLarge／大份 RM14.00",
