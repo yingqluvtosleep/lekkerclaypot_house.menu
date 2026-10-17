@@ -18,8 +18,8 @@ const menuItems = [
   { id: 7, category: "claypot-curry", name: "Curry Sotong 咖喱苏东", description: "Tender Sotong Infused With Bold, Fragrant Curry Flavours 弹嫩苏东吸收浓郁咖喱精华，香气十足", image: "assets/images/curry-sotong.jpg", featured: false },
   { id: 8, category: "claypot-curry", name: "Curry Fish Head & Fish Meat 咖喱鱼头 & 鱼肉", description: "The Best Of Both Worlds, With Fish Head And Fish Meat In Rich Curry 鱼头与鱼肉双重美味，搭配香浓醇厚的咖喱", image: "assets/images/curry-head-meat.jpg", featured: false, containsFishHead: true },
   { id: 9, category: "claypot-curry", name: "Curry Fish Head & Prawn 咖喱鱼头 & 虾", description: "Fish head and juicy prawns in rich, aromatic curry. 鱼头搭配鲜虾，融入香浓咖喱。", image: "assets/images/curry-head-prawn.jpg", featured: false, containsFishHead: true },
-  { id: 10, category: "claypot-curry", name: "Curry Fish Head & Sotong 咖喱鱼头 & 苏东", description: "Fish head and tender sotong in rich, aromatic curry. 鱼头搭配弹嫩苏东，融入香浓咖喱。", image: "", featured: false, containsFishHead: true },
-  { id: 11, category: "claypot-curry", name: "Curry Fish Meat & Prawn 咖喱鱼肉 & 虾", description: "Tender fish meat and juicy prawns in rich, aromatic curry. 鲜嫩鱼肉搭配鲜虾，融入香浓咖喱。", image: "", featured: false },
+  { id: 10, category: "claypot-curry", name: "Curry Fish Head & Sotong 咖喱鱼头 & 苏东", description: "Fish head and tender sotong in rich, aromatic curry. 鱼头搭配弹嫩苏东，融入香浓咖喱。", image: "assets/images/curry-head-sotong.jpg", featured: false, containsFishHead: true },
+  { id: 11, category: "claypot-curry", name: "Curry Fish Meat & Prawn 咖喱鱼肉 & 虾", description: "Tender fish meat and juicy prawns in rich, aromatic curry. 鲜嫩鱼肉搭配鲜虾，融入香浓咖喱。", image: "assets/images/curry-meat-prawn.jpg", featured: false },
   { id: 12, category: "claypot-curry", name: "Curry Fish Meat & Sotong 咖喱鱼肉 & 苏东", description: "Tender fish meat and sotong in rich, aromatic curry. 鲜嫩鱼肉搭配苏东，融入香浓咖喱。", image: "assets/images/curry-meat-sotong.jpg", featured: false },
   { id: 13, category: "claypot-curry", name: "Curry Prawn & Sotong 咖喱虾 & 苏东", description: "A Seafood Duo Of Juicy Prawns And Tender Sotong In Rich Curry 鲜甜多汁的虾与弹嫩苏东相遇，融入香浓咖喱的美味组合", image: "assets/images/curry-prawn-sotong.jpg", featured: false },
   { id: 14, category: "claypot-curry", name: "Curry Fish Head, Fish Meat & Prawn 咖喱鱼头 & 鱼肉 & 虾", description: "Fish head, tender fish meat and juicy prawns in aromatic curry. 鱼头、鲜嫩鱼肉与鲜虾，融入香浓咖喱。", image: "assets/images/curry-head-meat-prawn.jpg", featured: false, containsFishHead: true },
@@ -73,7 +73,7 @@ const priceById = {
   // Curry Fish Meat & Sotong 咖喱鱼肉 & 苏东
   12: "2 persons／2人份 RM47.00\n3 persons／3人份 RM70.00\n4 persons／4人份 RM92.00\n5 persons／5人份 RM114.00\n6 persons／6人份 RM136.00\n7 persons／7人份 RM158.00\n8 persons／8人份 RM180.00",
   // Curry Prawn & Sotong 咖喱虾 & 苏东
-  13: "2 persons／2人份 RM22.00\n3 persons／3人份 RM33.00\n4 persons／4人份 RM44.00\n5 persons／5人份 RM55.00\n6 persons／6人份 RM66.00\n7 persons／7人份 RM77.00\n8 persons／8人份 RM88.00\nEach additional prawn／每加一只虾 RM5.00",
+  13: "2 persons／2人份 RM32.00\n3 persons／3人份 RM48.00\n4 persons／4人份 RM64.00\n5 persons／5人份 RM80.00\n6 persons／6人份 RM96.00\n7 persons／7人份 RM112.00\n8 persons／8人份 RM144.00\nEach additional prawn／每加一只虾 RM5.00",
   // Curry Fish Head, Fish Meat & Prawn 咖喱鱼头 & 鱼肉 & 虾
   14: "2 persons／2人份 RM54.00\n3 persons／3人份 RM81.00\n4 persons／4人份 RM106.00\n5 persons／5人份 RM130.00\n6 persons／6人份 RM156.00\n7 persons／7人份 RM181.00\n8 persons／8人份 RM206.00\nEach additional prawn／每加一只虾 RM5.00",
   // Curry Fish Head, Fish Meat & Sotong 咖喱鱼头 & 鱼肉 & 苏东
