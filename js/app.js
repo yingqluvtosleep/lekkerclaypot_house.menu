@@ -123,8 +123,12 @@ const priceById = {
 };
 // Keep confirmed prices unchanged and add the weight note to fish-head dishes.
 const fishHeadWeightNote = "Final price is based on the weight of the fish head／最终售价按鱼头实际重量计算";
+const claypotRicePreparationNote = "Please allow 15–25 minutes for your claypot chicken rice. Thank you for your patience.／瓦煲鸡饭需等候 15–25分钟，谢谢您的耐心等候。";
 menuItems.forEach((item) => {
   const priceLines = [priceById[item.id] || ""];
+  if (item.id === 1 || item.id === 3) {
+    priceLines.push(claypotRicePreparationNote);
+  }
   if (item.containsFishHead) {
     priceLines.push(fishHeadWeightNote);
   }
@@ -333,7 +337,7 @@ function renderPriceList(priceText) {
         '<div class="price-rows">';
     var notes = [];
     lines.forEach(function (line) {
-        if (/^(Add-ons charged separately|Final price is based on the weight of the fish head)/i.test(line)) {
+        if (line === claypotRicePreparationNote || /^(Add-ons charged separately|Final price is based on the weight of the fish head)/i.test(line)) {
             notes.push(line);
             return;
         }
@@ -362,10 +366,22 @@ function renderPriceList(priceText) {
             var parts = note.split("／");
             var english = parts.shift().trim();
             var chinese = parts.join("／").trim();
-            html += '<p class="price-note"><span>' +
-                escapePriceText(english) + '</span>';
+            var noteClass = note === claypotRicePreparationNote
+                ? "price-note price-note--preparation"
+                : "price-note";
+            html += '<p class="' + noteClass + '">';
+            if (note === claypotRicePreparationNote) {
+                html += '<svg class="preparation-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+            }
+            var englishHtml = escapePriceText(english);
+            var chineseHtml = escapePriceText(chinese);
+            if (note === claypotRicePreparationNote) {
+                englishHtml = englishHtml.replace("15–25 minutes", "<strong>15–25 minutes</strong>");
+                chineseHtml = chineseHtml.replace("15–25分钟", "<strong>15–25分钟</strong>");
+            }
+            html += '<span>' + englishHtml + '</span>';
             if (chinese) {
-                html += '<span lang="zh">' + escapePriceText(chinese) + '</span>';
+                html += '<span lang="zh">' + chineseHtml + '</span>';
             }
             html += '</p>';
         });

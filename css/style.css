@@ -526,6 +526,40 @@ button {
 .price-note [lang="zh"]::before {
     content: " / ";
 }
+.price-note.price-note--preparation {
+    display: grid;
+    grid-template-columns: 1.2em minmax(0, 1fr);
+    column-gap: 10px;
+    row-gap: 6px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(247, 235, 221, 0.12);
+    color: #dccbb9;
+    line-height: 1.6;
+}
+.preparation-clock {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.2em;
+    color: #ef9b92;
+}
+.price-note--preparation > span {
+    display: block;
+    grid-column: 2;
+    min-width: 0;
+}
+.price-note--preparation strong {
+    color: #ef9b92;
+    font-weight: 600;
+}
+.price-note--preparation [lang="zh"] {
+    color: #c7b39d;
+}
+.price-note--preparation [lang="zh"]::before {
+    content: none;
+}
 @media (orientation: portrait) and (max-width: 600px) {
     .price-note {
         font-size: clamp(12.5px, 3.4vw, 14.5px);
