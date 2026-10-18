@@ -356,6 +356,7 @@ button {
 
 /* --- Dish pricing: premium serving card --- */
 .dish-price {
+    --price-divider: rgba(216, 154, 69, 0.18);
     position: absolute;
     z-index: 4;
     right: 4%;
@@ -437,7 +438,7 @@ button {
     margin-bottom: 9px;
     padding-bottom: 10px;
 
-    border-bottom: 1px solid rgba(216, 154, 69, 0.35);
+    border-bottom: 1px solid var(--price-divider);
 }
 
 .price-heading span:first-child {
@@ -478,7 +479,7 @@ button {
     font-size: clamp(12px, 1.1vw, 15px);
     line-height: 1.35;
 
-    border-bottom: 1px solid rgba(247, 235, 221, 0.09);
+    border-bottom: 1px solid var(--price-divider);
 
     font-family: var(--sans);
     font-variant-numeric: tabular-nums;
@@ -510,7 +511,7 @@ button {
 .price-notes {
     margin-top: 10px;
     padding-top: 10px;
-    border-top: 1px solid rgba(216, 154, 69, 0.18);
+    border-top: 1px solid var(--price-divider);
 }
 .price-note {
     font: 400 clamp(12px, 1.1vw, 18px) / 1.5 var(--sans);
@@ -533,7 +534,7 @@ button {
     row-gap: 6px;
     margin-top: 18px;
     padding-top: 16px;
-    border-top: 1px solid rgba(247, 235, 221, 0.12);
+    border-top: 1px solid var(--price-divider);
     color: #dccbb9;
     line-height: 1.6;
 }
