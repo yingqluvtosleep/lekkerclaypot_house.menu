@@ -135,7 +135,7 @@ menuItems.forEach((item) => {
   item.price = priceLines.filter(Boolean).join("\n");
 });
 /* ===== Settings ===== */
-const IDLE_MS = 30000;
+const IDLE_MS = 60000;
 const SLIDE_MS = 8000;
 const FADE_MS = 1200;
 const IDLE_EXIT_MS = 600;
@@ -159,6 +159,8 @@ let currentList = [];
 let index = 0;
 let busy = false;
 let opening = false;
+let openingTimer = null;
+let returningToIntro = false;
 let slideshowActive = false;
 let slideIndex = 0;
 let lastWake = 0;
@@ -771,7 +773,8 @@ function openMenu() {
   el.menu.hidden = false;
   el.menu.classList.add("enter");
   el.intro.classList.add("leaving");
-  setTimeout(() => {
+  openingTimer = setTimeout(() => {
+    openingTimer = null;
     el.intro.hidden = true;
     el.intro.classList.remove("leaving");
     el.menu.classList.remove("enter");
@@ -780,9 +783,16 @@ function openMenu() {
   }, 1300);
 }
 function showIntro() {
+  if (returningToIntro) return;
+  returningToIntro = true;
+  const menuStyle = getComputedStyle(el.menu);
+  const menuOpacity = menuStyle.opacity;
+  const menuTransform = menuStyle.transform;
+  clearTimeout(openingTimer);
+  openingTimer = null;
   clearTimers();
   slideshowActive = false;
-  opening = false;
+  opening = true;
   queuedTransitions = [];
   /* --- Page flip: cancel unfinished transitions --- */
   if (flipTimer !== null) {
@@ -794,22 +804,51 @@ function showIntro() {
       leaf.remove();
   });
   busy = false;
-  el.dish.classList.remove("reveal");
+  el.dish.classList.remove("reveal", "category-exit", "category-enter");
   el.idle.hidden = true;
   el.idle.classList.remove("swap");
   el.menu.classList.remove("ui-hidden", "enter");
-  el.menu.hidden = true;
+  // Flush the hidden state so every return restarts the welcome animations,
+  // even when returning before the opening transition has finished.
+  el.intro.hidden = true;
   el.intro.classList.remove("leaving");
-  // Prepare a clean state for the next customer.
-  currentCategory = categories[0].id;
-  currentList = menuItems.filter(
-    (item) => item.category === currentCategory
-  );
-  index = 0;
-  slideIndex = 0;
-  renderCategories();
-  renderMenuItem();
+  void el.intro.offsetWidth;
   el.intro.hidden = false;
+  el.menu.inert = true;
+  el.intro.inert = true;
+
+  const animations = [];
+  const finish = () => {
+    el.menu.hidden = true;
+    animations.forEach((animation) => animation.cancel());
+    el.menu.inert = false;
+    el.intro.inert = false;
+    // Reset the menu after it fades out, keeping the outgoing dish stable.
+    currentCategory = categories[0].id;
+    currentList = menuItems.filter(
+      (item) => item.category === currentCategory
+    );
+    index = 0;
+    slideIndex = 0;
+    renderCategories();
+    renderMenuItem();
+    opening = false;
+    returningToIntro = false;
+    $("startBtn").focus({ preventScroll: true });
+  };
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !el.intro.animate) {
+    finish();
+    return;
+  }
+  animations.push(el.menu.animate([
+    { opacity: menuOpacity, transform: menuTransform },
+    { opacity: 0, transform: "scale(0.985)" },
+  ], { duration: 600, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)", fill: "both" }));
+  animations.push(el.intro.animate([
+    { opacity: 0 },
+    { opacity: 1 },
+  ], { duration: 650, easing: "ease-in-out", fill: "both" }));
+  Promise.all(animations.map((animation) => animation.finished)).then(finish, finish);
 }
 /* --- Page flip: reset drag state --- */
 function resetDragFlip() {
@@ -874,7 +913,7 @@ function showSlide(first) {
   }, FADE_MS);
 }
 function startSlideshow() {
-  if (el.menu.hidden || slideshowActive || idleReturning || !featured().length) {
+  if (el.menu.hidden || opening || busy || slideshowActive || idleReturning || !featured().length) {
     return;
   }
   clearTimeout(idleTimer);
@@ -916,6 +955,15 @@ function stopSlideshow() {
 /* ===== Event handling ===== */
 function bindEvents() {
   el.intro.addEventListener("click", openMenu);
+  $("slideshowBtn").addEventListener("click", startSlideshow);
+  $("homeBtn").addEventListener("click", () => {
+    showIntro();
+  });
+  $("homeBtn").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.stopPropagation();
+    }
+  });
   $("nextBtn").addEventListener("click", showNextItem);
   $("prevBtn").addEventListener("click", showPreviousItem);
   el.book.addEventListener("click", () => {
