@@ -13,7 +13,7 @@ const menuItems = [
   { id: 2, category: "signature", name: "Curry Fish Head 咖喱鱼头", description: "Tender Fish Head Bathed In Rich, Fragrant Curry 鲜嫩鱼头浸润在香浓浓郁的咖喱中", image: "assets/images/curry-head.jpg", featured: true, containsFishHead: true },
   { id: 3, category: "claypot-curry", name: "Claypot Chicken Rice 瓦煲鸡饭", description: "Freshly Cooked Claypot Rice With Savoury Chicken 香喷喷的现煮瓦煲饭，融合鸡肉的鲜美滋味", image: "assets/images/claypot-chicken-rice.jpg", featured: false },
   { id: 4, category: "claypot-curry", name: "Curry Fish Head 咖喱鱼头", description: "A Rich, Spicy Curry With Tender, Flavourful Fish Head 香浓微辣的咖喱，配上鲜嫩入味的鱼头", image: "assets/images/curry-head.jpg", featured: false, containsFishHead: true },
-  { id: 5, category: "claypot-curry", name: "Curry Fish Meat 咖喱鱼肉", description: "Delicate Fish Meat Simmered In Fragrant Curry 鲜嫩鱼肉慢煮于香气扑鼻的咖喱中", image: "assets/images/curry-meat.jpg", featured: false },
+  { id: 5, category: "claypot-curry", name: "Curry Fish Meat 咖喱鱼肉", description: "Delicate Fish Meat Simmered In Fragrant Curry 鲜嫩鱼肉慢煮于香气扑鼻的咖喱中", image: "assets/images/curry-meat.jpg", featured: true },
   { id: 6, category: "claypot-curry", name: "Curry Prawn 咖喱虾", description: "Juicy Prawns Coated In A Rich, Aromatic Curry 鲜甜多汁的虾，裹上香浓诱人的咖喱", image: "assets/images/curry-prawn.jpg", featured: false },
   { id: 7, category: "claypot-curry", name: "Curry Sotong 咖喱苏东", description: "Tender Sotong Infused With Bold, Fragrant Curry Flavours 弹嫩苏东吸收浓郁咖喱精华，香气十足", image: "assets/images/curry-sotong.jpg", featured: false },
   { id: 8, category: "claypot-curry", name: "Curry Fish Head & Fish Meat 咖喱鱼头 & 鱼肉", description: "The Best Of Both Worlds, With Fish Head And Fish Meat In Rich Curry 鱼头与鱼肉双重美味，搭配香浓醇厚的咖喱", image: "assets/images/curry-head-meat.jpg", featured: false, containsFishHead: true },
@@ -40,6 +40,7 @@ const menuItems = [
   { id: 30, category: "other", name: "Sesame Oil Chicken 麻油鸡", description: "Tender Chicken Infused With Fragrant Sesame Oil 香浓麻油焖鸡，鸡肉鲜嫩入味", image: "assets/images/sesame-oil-chicken.jpg", featured: false },
   { id: 31, category: "other", name: "Chicken Rendang 仁当鸡", description: "Tender Chicken Cooked In Rich, Aromatic Rendang Spices 鸡肉融合浓郁仁当香料，香辣惹味", image: "assets/images/chicken-rendang.jpg", featured: false },
   { id: 32, category: "other", name: "Fried Chicken 炸鸡", description: "Crispy Golden Fried Chicken With Juicy Meat 外皮金黄酥脆，鸡肉鲜嫩多汁", image: "assets/images/fried-chicken.jpg", featured: false },
+  { id: 37, category: "other", name: "Kam Heong Chicken 甘香鸡", description: "Chicken Stir-Fried With Aromatic Kam Heong Spices 鸡肉搭配甘香香料热炒，香浓入味", image: "assets/images/kam-heong-chicken.jpg", featured: false },
   { id: 33, category: "other", name: "Fried Tofu With Thai Sauce 三味豆腐", description: "Golden Fried Tofu Drizzled With Tangy Thai Sauce 外酥内嫩的炸豆腐，搭配酸甜泰式酱汁", image: "assets/images/fried-tofu-thai-sauce.jpg", featured: true },
   { id: 34, category: "other", name: "Fried Sotong 炸苏东", description: "Crispy Fried Sotong With A Tender Bite 外酥内嫩的炸苏东，鲜香可口", image: "assets/images/fried-sotong.jpg", featured: false },
   { id: 35, category: "other", name: "Assam Prawn 亚三哥虾", description: "Juicy Prawns Tossed In A Tangy, Fragrant Assam Sauce 鲜甜多汁的虾，搭配酸香开胃的亚三酱汁", image: "assets/images/assam-prawn.jpg", featured: false },
@@ -117,6 +118,8 @@ const priceById = {
   31: "Per serving／每份 RM15.00",
   // Fried Chicken 炸鸡
   32: "Per serving／每份 RM15.00",
+  // Kam Heong Chicken 甘香鸡
+  37: "Per serving／每份 RM15.00",
   // Fried Tofu With Thai Sauce 三味豆腐
   33: "Small／小份 RM6.00\nLarge／大份 RM12.00",
   // Fried Sotong 炸苏东
