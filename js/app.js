@@ -123,7 +123,7 @@ const priceById = {
 };
 // Keep confirmed prices unchanged and add the weight note to fish-head dishes.
 const fishHeadWeightNote = "Final price is based on the weight of the fish head／最终售价按鱼头实际重量计算";
-const claypotRicePreparationNote = "Please allow 15–25 minutes for your claypot chicken rice. Thank you for your patience.／瓦煲鸡饭需等候 15–25分钟，谢谢您的耐心等候。";
+const claypotRicePreparationNote = "Claypot chicken rice takes about 25–35 minutes to prepare. Thank you for your patience.／瓦煲鸡饭需等候 25–35分钟，谢谢您的耐心等候。";
 menuItems.forEach((item) => {
   const priceLines = [priceById[item.id] || ""];
   if (item.id === 1 || item.id === 3) {
@@ -378,8 +378,8 @@ function renderPriceList(priceText) {
             var englishHtml = escapePriceText(english);
             var chineseHtml = escapePriceText(chinese);
             if (note === claypotRicePreparationNote) {
-                englishHtml = englishHtml.replace("15–25 minutes", "<strong>15–25 minutes</strong>");
-                chineseHtml = chineseHtml.replace("15–25分钟", "<strong>15–25分钟</strong>");
+                englishHtml = englishHtml.replace("25–35 minutes", "<strong>25–35 minutes</strong>");
+                chineseHtml = chineseHtml.replace("25–35分钟", "<strong>25–35分钟</strong>");
             }
             html += '<span>' + englishHtml + '</span>';
             if (chinese) {
