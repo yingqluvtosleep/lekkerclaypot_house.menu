@@ -526,14 +526,14 @@ button {
     padding-bottom: clamp(7px, 1vh, 14px);
 }
 
-.price-heading span:first-child {
+.price-heading > span:first-child {
     font-weight: 700;
     letter-spacing: 0.24em;
     color: var(--gold);
     font-size: clamp(10px, 0.95vw, 17px);
 }
 
-.price-heading span:last-child {
+.price-heading > span:last-child {
     padding: 5px 8px;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -548,6 +548,75 @@ button {
     display: flex;
     flex-direction: column;
     gap: 0;
+}
+
+/* Vegetable options align directly with their small and large prices. */
+.vegetable-prices {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font: 400 clamp(12px, 1.1vw, 18px) / 1.4 var(--sans);
+    font-variant-numeric: tabular-nums;
+}
+.vegetable-style-column {
+    width: 48%;
+}
+.vegetable-prices tbody th,
+.vegetable-prices .vegetable-column-titles th:first-child {
+    text-align: left;
+}
+.vegetable-prices thead th {
+    padding: 2px 4px 10px;
+    color: #c7b39d;
+    font-size: 0.78em;
+    font-weight: 400;
+    text-align: right;
+}
+.vegetable-prices .vegetable-column-titles th {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.85em;
+    padding-bottom: 12px;
+    vertical-align: middle;
+}
+.vegetable-prices tbody th,
+.vegetable-prices td {
+    padding: 12px 4px;
+    border-top: 1px solid var(--price-divider);
+    vertical-align: middle;
+}
+.vegetable-prices tbody th {
+    color: var(--cream);
+    font-weight: 400;
+    overflow-wrap: anywhere;
+    padding-right: 12px;
+}
+.vegetable-prices [lang="zh"] {
+    display: block;
+    margin-top: 3px;
+}
+.vegetable-prices thead [lang="zh"] {
+    display: inline;
+    margin-top: 0;
+}
+.vegetable-prices tbody th [lang="zh"] {
+    display: inline;
+    margin-top: 0;
+    color: inherit;
+    font-size: inherit;
+}
+.vegetable-prices td {
+    color: #f2bd70;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+}
+.vegetable-price-unit {
+    display: block;
+    margin-top: 3px;
+    color: #b8aa9a;
+    font-size: 0.72em;
+    font-weight: 400;
 }
 
 .price-row {
@@ -573,6 +642,12 @@ button {
     min-width: 0;
     color: rgba(247, 235, 221, 0.82);
     overflow-wrap: anywhere;
+}
+
+.price-heading [lang="zh"] {
+    display: inline;
+    font-size: inherit;
+    letter-spacing: 0.08em;
 }
 
 .price-amount {
@@ -1160,11 +1235,11 @@ button {
         min-width: 0;
     }
 
-    .price-heading span:first-child {
+    .price-heading > span:first-child {
         letter-spacing: 0.15em;
     }
 
-    .price-heading span:last-child {
+    .price-heading > span:last-child {
         padding: 4px 6px;
     }
 
@@ -1349,12 +1424,12 @@ button {
         line-height: 1.4;
     }
 
-    .price-heading span:first-child {
+    .price-heading > span:first-child {
         font-size: 11px;
         letter-spacing: 0.2em;
     }
 
-    .price-heading span:last-child {
+    .price-heading > span:last-child {
         padding: 3px 7px;
         font-size: 9px;
     }
