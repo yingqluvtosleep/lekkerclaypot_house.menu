@@ -34,8 +34,9 @@ const menuItems = [
   { id: 23, category: "vegetables", name: "Kailan 芥兰", description: "Crunchy Kailan With A Fresh, Earthy Flavour 清脆爽口的芥兰，滋味鲜美", image: "assets/images/kailan.jpg", featured: false },
   { id: 25, category: "vegetables", name: "Beansprouts (Taugeh) 豆芽", description: "Light And Crunchy Beansprouts 清爽脆嫩的豆芽", image: "assets/images/beansprouts.jpg", featured: false },
   { id: 26, category: "egg", name: "Plain Fried Egg (Kosong) 煎蛋", description: "A Simple Fried Egg With Golden Edges 香煎鸡蛋，蛋香十足", image: "assets/images/plain-fried-egg.jpg", featured: false },
-  { id: 27, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", image: "assets/images/fried-egg-onion.jpg", featured: false },
-  { id: 28, category: "egg", name: "Fried Egg With Chinese Sausage 腊肠蛋", description: "Savoury Fried Egg With Fragrant Chinese Sausage 香煎鸡蛋搭配咸香腊肠", image: "assets/images/fried-egg-chinese-sausage.jpg", featured: false },
+  { id: 27, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", image: "assets/images/fried-egg-with-onion.jpg", featured: false },
+  { id: 28, category: "egg", name: "Fried Egg With Chinese Sausage 腊肠蛋", description: "Savoury Fried Egg With Fragrant Chinese Sausage 香煎鸡蛋搭配咸香腊肠", image: "assets/images/fried-egg-with-chinese-sausage.jpg", featured: false },
+  { id: 38, category: "egg", name: "Fried Egg With Prawn 虾蛋", description: "Golden Fried Egg With Juicy Prawns 香煎鸡蛋搭配鲜甜虾仁", image: "assets/images/fried-egg-with-prawn.jpg", featured: false },
   { id: 29, category: "egg", name: "Egg Foo Yong 芙蓉蛋", description: "Golden Egg Foo Yong With A Soft, Fluffy Centre 金黄香煎芙蓉蛋，口感松软", image: "assets/images/egg-foo-yong.jpg", featured: false },
   { id: 30, category: "other", name: "Sesame Oil Chicken 麻油鸡", description: "Tender Chicken Infused With Fragrant Sesame Oil 香浓麻油焖鸡，鸡肉鲜嫩入味", image: "assets/images/sesame-oil-chicken.jpg", featured: false },
   { id: 31, category: "other", name: "Chicken Rendang 仁当鸡", description: "Tender Chicken Cooked In Rich, Aromatic Rendang Spices 鸡肉融合浓郁仁当香料，香辣惹味", image: "assets/images/chicken-rendang.jpg", featured: false },
@@ -110,6 +111,8 @@ const priceById = {
   27: "Small／小份 RM4.00\nLarge／大份 RM6.00",
   // Fried Egg With Chinese Sausage 腊肠蛋
   28: "Small／小份 RM5.00\nLarge／大份 RM8.00",
+  // Fried Egg With Prawn 虾仁蛋
+  38: "Per serving／每份 RM8.00",
   // Egg Foo Yong 芙蓉蛋
   29: "Per serving／每份 RM10.00",
   // Sesame Oil Chicken 麻油鸡
