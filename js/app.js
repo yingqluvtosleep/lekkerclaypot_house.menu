@@ -34,7 +34,7 @@ const menuItems = [
   { id: 23, category: "vegetables", name: "Kailan 芥兰", description: "Crunchy Kailan With A Fresh, Earthy Flavour 清脆爽口的芥兰，滋味鲜美", image: "assets/images/kailan.jpg", featured: false },
   { id: 25, category: "vegetables", name: "Beansprouts (Taugeh) 豆芽", description: "Light And Crunchy Beansprouts 清爽脆嫩的豆芽", image: "assets/images/beansprouts.jpg", featured: false },
   { id: 26, category: "egg", name: "Plain Fried Egg (Kosong) 煎蛋", description: "A Simple Fried Egg With Golden Edges 香煎鸡蛋，蛋香十足", image: "assets/images/plain-fried-egg.jpg", featured: false },
-  { id: 27, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", image: "assets/images/fried-egg-with- onion.jpg", featured: false },
+  { id: 27, category: "egg", name: "Fried Egg With Onion 洋葱蛋", description: "Fluffy Fried Egg With Sweet, Fragrant Onion 香嫩煎蛋搭配清甜洋葱", image: "assets/images/fried-egg-with-onion.jpg", featured: false },
   { id: 28, category: "egg", name: "Fried Egg With Chinese Sausage 腊肠蛋", description: "Savoury Fried Egg With Fragrant Chinese Sausage 香煎鸡蛋搭配咸香腊肠", image: "assets/images/fried-egg-with-chinese-sausage.jpg", featured: false },
   { id: 38, category: "egg", name: "Fried Egg With Prawn 虾蛋", description: "Golden Fried Egg With Juicy Prawns 香煎鸡蛋搭配鲜甜虾仁", image: "assets/images/fried-egg-with-prawn.jpg", featured: false },
   { id: 29, category: "egg", name: "Egg Foo Yong 芙蓉蛋", description: "Golden Egg Foo Yong With A Soft, Fluffy Centre 金黄香煎芙蓉蛋，口感松软", image: "assets/images/egg-foo-yong.jpg", featured: false },
