@@ -114,7 +114,7 @@ const priceById = {
   // Fried Egg With Prawn 虾仁蛋
   38: "Per serving／每份 RM10.00",
   // Egg Foo Yong 芙蓉蛋
-  29: "Per serving／每份 RM10.00",
+  29: "Per serving／每份 RM12.00",
   // Sesame Oil Chicken 麻油鸡
   30: "Per serving／每份 RM15.00",
   // Chicken Rendang 仁当鸡
