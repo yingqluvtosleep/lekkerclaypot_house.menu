@@ -70,7 +70,7 @@ const priceById = {
   // Curry Prawn 咖喱虾
   6: "Per serving／每份 RM40.00++\nEach additional prawn／每加一只虾 RM5.00",
   // Curry Sotong 咖喱苏东
-  7: "Small／小份 RM30.00\nMedium／中份 RM45.00\nLarge／大份 RM60.00\nAdd-ons charged separately／配料另收费\nEach additional sotong／每加一只苏东 RM6.00",
+  7: "Small／小份 RM30.00\nMedium／中份 RM45.00\nLarge／大份 RM60.00\nEach additional sotong／每加一只苏东 RM6.00",
   // Curry Fish Head & Fish Meat 咖喱鱼头 & 鱼肉
   8: "2 persons／2人份 RM44.00\n3 persons／3人份 RM66.00\n4 persons／4人份 RM86.00\n5 persons／5人份 RM105.00\n6 persons／6人份 RM126.00\n7 persons／7人份 RM146.00\n8 persons／8人份 RM166.00",
   // Curry Fish Head & Prawn 咖喱鱼头 & 虾
